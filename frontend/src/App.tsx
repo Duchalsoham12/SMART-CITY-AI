@@ -6,6 +6,7 @@ import { setLiveMode } from './services/apiClient';
 
 // Pages
 import { ExecutiveOverview } from './pages/ExecutiveOverview';
+import { DatasetManagementPage } from './pages/DatasetManagementPage';
 import { TrafficIntelligence } from './pages/TrafficIntelligence';
 import { EnvironmentalIntelligence } from './pages/EnvironmentalIntelligence';
 import { SafetyAndRisk } from './pages/SafetyAndRisk';
@@ -21,18 +22,20 @@ import { DocumentationCenterPage } from './pages/DocumentationCenterPage';
 import { OnboardingModal } from './components/help/OnboardingModal';
 import { ProductTour } from './components/help/ProductTour';
 import { HelpCenterModal } from './components/help/HelpCenterModal';
+import { DatasetUploadModal } from './components/datasets/DatasetUploadModal';
 
 export const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<PageId>('overview');
   const [isLiveApi, setIsLiveApiState] = useState<boolean>(true);
   const [userRole, setUserRole] = useState<string>('viewer');
 
-  // Help & Onboarding Modals State
+  // Help, Onboarding & Upload Modals State
   const [isOnboardingOpen, setIsOnboardingOpen] = useState<boolean>(() => {
     return localStorage.getItem('smartcityai_onboarding_shown') === null;
   });
   const [isTourOpen, setIsTourOpen] = useState<boolean>(false);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState<boolean>(false);
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState<boolean>(false);
 
   const handleToggleLiveApi = (live: boolean) => {
     setIsLiveApiState(live);
@@ -54,6 +57,7 @@ export const App: React.FC = () => {
         if (isTourOpen) setIsTourOpen(false);
         if (isHelpModalOpen) setIsHelpModalOpen(false);
         if (isOnboardingOpen) setIsOnboardingOpen(false);
+        if (isUploadModalOpen) setIsUploadModalOpen(false);
         return;
       }
 
@@ -69,6 +73,8 @@ export const App: React.FC = () => {
         const key = e.key.toLowerCase();
         if (key === 'd') {
           setCurrentPage('overview');
+        } else if (key === 'u') {
+          setCurrentPage('datasets');
         } else if (key === 'm') {
           setCurrentPage('geospatial');
         } else if (key === 't') {
@@ -83,12 +89,14 @@ export const App: React.FC = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isTourOpen, isHelpModalOpen, isOnboardingOpen]);
+  }, [isTourOpen, isHelpModalOpen, isOnboardingOpen, isUploadModalOpen]);
 
   const renderActivePage = () => {
     switch (currentPage) {
       case 'overview':
         return <ExecutiveOverview onNavigate={setCurrentPage} />;
+      case 'datasets':
+        return <DatasetManagementPage onOpenUpload={() => setIsUploadModalOpen(true)} />;
       case 'traffic':
         return <TrafficIntelligence />;
       case 'environment':
@@ -136,6 +144,7 @@ export const App: React.FC = () => {
           onRoleChange={setUserRole}
           onOpenHelp={() => setIsHelpModalOpen(true)}
           onOpenTour={() => setIsTourOpen(true)}
+          onOpenUpload={() => setIsUploadModalOpen(true)}
         />
 
         {/* Dynamic Page Container */}
@@ -179,6 +188,15 @@ export const App: React.FC = () => {
         onOpenFullDocs={() => {
           setIsHelpModalOpen(false);
           setCurrentPage('docs');
+        }}
+      />
+
+      {/* Dataset Ingestion & Upload Modal */}
+      <DatasetUploadModal
+        isOpen={isUploadModalOpen}
+        onClose={() => setIsUploadModalOpen(false)}
+        onUploadSuccess={() => {
+          setCurrentPage('datasets');
         }}
       />
     </div>

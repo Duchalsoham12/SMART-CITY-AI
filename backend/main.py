@@ -20,6 +20,7 @@ from backend.routers import (
     health_router,
     insights_router,
     traffic_router,
+    datasets_router,
 )
 
 # OpenAPI Tags Metadata
@@ -105,6 +106,7 @@ def create_application() -> FastAPI:
     app.include_router(geospatial_router, prefix=api_prefix)
     app.include_router(insights_router, prefix=api_prefix)
     app.include_router(health_router, prefix=api_prefix)
+    app.include_router(datasets_router, prefix=api_prefix)
 
     @app.get("/", tags=["Platform Overview"])
     def root():

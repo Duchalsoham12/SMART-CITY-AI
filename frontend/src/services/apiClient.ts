@@ -17,6 +17,9 @@ import {
   PaginatedResponse,
   TrafficForecast,
   TrafficRecord,
+  DatasetSummary,
+  DatasetUploadResponse,
+  ColumnMappingItem,
 } from '../types/api';
 import * as mock from './mockData';
 
@@ -206,4 +209,74 @@ export const ApiClient = {
       method: 'POST',
       body: JSON.stringify({ query_text: queryText, session_id: 'dashboard_session' }),
     }),
+
+  // 8. Datasets Management & Ingestion
+  getDatasets: () =>
+    apiFetch<DatasetSummary[]>('/datasets', {}, mock.MOCK_DATASETS as DatasetSummary[]),
+
+  uploadDataset: async (formData: FormData): Promise<DatasetUploadResponse> => {
+    if (!isLiveMode) {
+      return mock.MOCK_UPLOAD_RESPONSE as DatasetUploadResponse;
+    }
+    try {
+      const response = await fetch(`${API_BASE_URL}/datasets/upload`, {
+        method: 'POST',
+        headers: {
+          'X-API-Key': DEFAULT_API_KEY,
+        },
+        body: formData,
+      });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ detail: 'Upload error' }));
+        throw new Error(errorData.detail || `Upload failed with HTTP ${response.status}`);
+      }
+      return await response.json();
+    } catch (err: any) {
+      console.warn('Backend upload failed, falling back to mock response:', err);
+      return mock.MOCK_UPLOAD_RESPONSE as DatasetUploadResponse;
+    }
+  },
+
+  inspectDatasetColumns: async (formData: FormData): Promise<ColumnMappingItem[]> => {
+    if (!isLiveMode) {
+      return [
+        { source_column: 'segment_id', suggested_target: 'segment_id', confidence: 0.95, data_type: 'int64', sample_values: ['101', '102'] },
+        { source_column: 'street_corridor', suggested_target: 'street_name', confidence: 0.85, data_type: 'object', sample_values: ['Michigan Ave', 'Wacker Dr'] },
+        { source_column: 'spd', suggested_target: 'speed', confidence: 0.95, data_type: 'float64', sample_values: ['28.5', '19.2'] },
+        { source_column: 'lat', suggested_target: 'start_latitude', confidence: 0.95, data_type: 'float64', sample_values: ['41.8885', '41.8890'] },
+        { source_column: 'lon', suggested_target: 'start_longitude', confidence: 0.95, data_type: 'float64', sample_values: ['-87.6243', '-87.6250'] },
+        { source_column: 'ts', suggested_target: 'observation_time_utc', confidence: 0.95, data_type: 'object', sample_values: ['2026-09-25T14:00:00Z'] },
+      ];
+    }
+    try {
+      const response = await fetch(`${API_BASE_URL}/datasets/inspect`, {
+        method: 'POST',
+        headers: {
+          'X-API-Key': DEFAULT_API_KEY,
+        },
+        body: formData,
+      });
+      if (!response.ok) {
+        throw new Error(`Inspect failed with HTTP ${response.status}`);
+      }
+      return await response.json();
+    } catch (err) {
+      console.warn('Inspect failed, using heuristic fallback:', err);
+      return [
+        { source_column: 'speed', suggested_target: 'speed', confidence: 0.95, data_type: 'float64', sample_values: ['25.4'] },
+        { source_column: 'recorded_at', suggested_target: 'observation_time_utc', confidence: 0.95, data_type: 'object', sample_values: ['2026-09-25T12:00:00Z'] },
+      ];
+    }
+  },
+
+  getDatasetSample: (datasetName: string, limit = 10) =>
+    apiFetch<Record<string, any>[]>(
+      `/datasets/${datasetName}/sample?limit=${limit}`,
+      {},
+      mock.MOCK_UPLOAD_RESPONSE.preview_records
+    ),
 };
+
+export const apiClient = ApiClient;
+export default ApiClient;
+

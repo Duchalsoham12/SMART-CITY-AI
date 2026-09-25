@@ -171,3 +171,50 @@ export interface HealthCheckData {
   timestamp_utc: string;
   components: Record<string, { status: string; details?: Record<string, any> }>;
 }
+
+export interface DataQualityReport {
+  completeness_score: number;
+  validity_score: number;
+  uniqueness_score: number;
+  consistency_score: number;
+  total_records: number;
+  valid_records: number;
+  quarantined_records: number;
+  is_approved: boolean;
+  warnings: string[];
+}
+
+export interface DatasetSummary {
+  dataset_name: string;
+  category: 'traffic' | 'accidents' | 'air_quality' | 'custom' | string;
+  version_id: string;
+  sha256_hash: string;
+  row_count: number;
+  columns: string[];
+  quality_score: number;
+  created_at_utc: string;
+  is_active?: boolean;
+  manifest_path?: string;
+}
+
+export interface ColumnMappingItem {
+  source_column: string;
+  suggested_target: string;
+  confidence: number;
+  data_type: string;
+  sample_values: string[];
+}
+
+export interface DatasetUploadResponse {
+  success: boolean;
+  message: string;
+  dataset_name: string;
+  version_id: string;
+  sha256_hash: string;
+  total_rows: number;
+  valid_rows: number;
+  quarantined_rows: number;
+  quality_report: DataQualityReport;
+  preview_records: Record<string, any>[];
+}
+

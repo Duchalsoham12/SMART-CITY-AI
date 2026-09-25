@@ -2,6 +2,7 @@ import React from 'react';
 
 export type PageId =
   | 'overview'
+  | 'datasets'
   | 'traffic'
   | 'environment'
   | 'safety'
@@ -21,6 +22,7 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => {
   const navItems: { id: PageId; label: string; icon: string }[] = [
     { id: 'overview', label: 'Executive Overview', icon: '📊' },
+    { id: 'datasets', label: 'Dataset Management', icon: '📁' },
     { id: 'traffic', label: 'Traffic Intelligence', icon: '🚦' },
     { id: 'environment', label: 'Environmental Intelligence', icon: '🍃' },
     { id: 'safety', label: 'Safety & Risk', icon: '🛡️' },

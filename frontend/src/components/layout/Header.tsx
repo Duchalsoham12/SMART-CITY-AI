@@ -9,6 +9,7 @@ interface HeaderProps {
   onRoleChange: (role: string) => void;
   onOpenHelp?: () => void;
   onOpenTour?: () => void;
+  onOpenUpload?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -19,11 +20,16 @@ export const Header: React.FC<HeaderProps> = ({
   onRoleChange,
   onOpenHelp,
   onOpenTour,
+  onOpenUpload,
 }) => {
   const pageTitles: Record<PageId, { title: string; subtitle: string }> = {
     overview: {
       title: 'Executive Metropolitan Overview',
       subtitle: 'Real-time urban stress index, multimodal KPIs, and high-priority alerts',
+    },
+    datasets: {
+      title: 'Dataset Management & Preflight Ingestion',
+      subtitle: 'Upload CSV/Excel telemetry, semantic column mapping, preflight validation & quality audits',
     },
     traffic: {
       title: 'Traffic Intelligence & Flow',
@@ -77,6 +83,18 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       <div className="flex items-center gap-3">
+        {/* Quick Add Dataset Button */}
+        {onOpenUpload && (
+          <button
+            onClick={onOpenUpload}
+            className="px-2.5 py-1.5 bg-teal-600/30 hover:bg-teal-600/40 text-teal-200 border border-teal-500/40 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-sm"
+            title="Upload New Dataset Telemetry (CSV, XLSX, JSON)"
+          >
+            <span>📁</span>
+            <span>+ Add Data</span>
+          </button>
+        )}
+
         {/* Quick Product Tour Button */}
         {onOpenTour && (
           <button

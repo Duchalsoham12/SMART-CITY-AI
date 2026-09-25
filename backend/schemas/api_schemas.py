@@ -281,3 +281,54 @@ class HealthCheckResponse(BaseModel):
     uptime_seconds: float
     timestamp_utc: datetime
     components: Dict[str, ComponentHealth]
+
+
+# -------------------------------------------------------------------------
+# Dataset Ingestion & Management Schemas
+# -------------------------------------------------------------------------
+
+class DataQualityReport(BaseModel):
+    completeness_score: float = Field(..., ge=0.0, le=100.0, description="Percentage of non-null mandatory fields")
+    validity_score: float = Field(..., ge=0.0, le=100.0, description="Percentage within valid physical range")
+    uniqueness_score: float = Field(..., ge=0.0, le=100.0, description="Percentage of unique non-duplicate records")
+    consistency_score: float = Field(..., ge=0.0, le=100.0, description="Cross-field logical consistency score")
+    total_records: int
+    valid_records: int
+    quarantined_records: int
+    is_approved: bool
+    warnings: List[str] = []
+
+
+class DatasetSummary(BaseModel):
+    dataset_name: str
+    category: str  # traffic, accidents, air_quality, custom
+    version_id: str
+    sha256_hash: str
+    row_count: int
+    columns: List[str]
+    quality_score: float
+    created_at_utc: str
+    is_active: bool = True
+    manifest_path: Optional[str] = None
+
+
+class ColumnMappingItem(BaseModel):
+    source_column: str
+    suggested_target: str
+    confidence: float
+    data_type: str
+    sample_values: List[str] = []
+
+
+class DatasetUploadResponse(BaseModel):
+    success: bool
+    message: str
+    dataset_name: str
+    version_id: str
+    sha256_hash: str
+    total_rows: int
+    valid_rows: int
+    quarantined_rows: int
+    quality_report: DataQualityReport
+    preview_records: List[Dict[str, Any]] = []
+

@@ -32,6 +32,10 @@ from backend.schemas.api_schemas import (
     CityHealthSummaryResponse,
     ComponentHealth,
     HealthCheckResponse,
+    DataQualityReport,
+    DatasetSummary,
+    ColumnMappingItem,
+    DatasetUploadResponse,
 )
 
 __all__ = [
@@ -63,4 +67,8 @@ __all__ = [
     "CityHealthSummaryResponse",
     "ComponentHealth",
     "HealthCheckResponse",
+    "DataQualityReport",
+    "DatasetSummary",
+    "ColumnMappingItem",
+    "DatasetUploadResponse",
 ]

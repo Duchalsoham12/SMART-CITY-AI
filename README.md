@@ -6,8 +6,8 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3+-3178C6.svg)](https://www.typescriptlang.org)
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4+-38B2AC.svg)](https://tailwindcss.com)
 [![LightGBM](https://img.shields.io/badge/ML-LightGBM%20%7C%20TreeSHAP-brightgreen.svg)](https://lightgbm.readthedocs.io/)
-[![Pytest Fleet](https://img.shields.io/badge/Pytest-82%2F82%20Passing-success.svg)](tests/)
-[![Vitest Fleet](https://img.shields.io/badge/Vitest-20%2F20%20Passing-success.svg)](frontend/src/__tests__/)
+[![Pytest Fleet](https://img.shields.io/badge/Pytest-86%2F86%20Passing-success.svg)](tests/)
+[![Vitest Fleet](https://img.shields.io/badge/Vitest-23%2F23%20Passing-success.svg)](frontend/src/__tests__/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > **Collect → Validate → Analyze → Predict → Detect → Explain → Recommend → Visualize → Monitor**
@@ -23,8 +23,10 @@ When running the project locally, access the platform services directly via thes
 | Service / Interface | Localhost Link | Alternative IP Link | Purpose |
 |---|---|---|---|
 | **🖥️ Frontend Web Application** | **[http://localhost:5173](http://localhost:5173)** | **[http://127.0.0.1:5173](http://127.0.0.1:5173)** | Interactive Dashboard, Leaflet Map, Quantile Forecaster & Assistant |
-| **📚 In-App Documentation Center** | **[http://localhost:5173](http://localhost:5173)** | **[http://127.0.0.1:5173](http://127.0.0.1:5173)** | User Manuals, FAQ, Role Paths & Hotkeys (Navigate to *User Guide & Docs* or press `?`) |
+| **📁 Dataset Ingestion & Management** | **[http://localhost:5173](http://localhost:5173)** *(Sidebar or Header `+ Add Data`)* | **[http://127.0.0.1:5173](http://127.0.0.1:5173)** | Upload CSV/Excel/JSON, semantic column mapping, preflight quality audit |
+| **📚 In-App Documentation Center** | **[http://localhost:5173](http://localhost:5173)** *(Sidebar or press `?`)* | **[http://127.0.0.1:5173](http://127.0.0.1:5173)** | User Manuals, FAQ, Role Paths & Hotkeys |
 | **⚡ Backend API Swagger Docs** | **[http://localhost:8000/docs](http://localhost:8000/docs)** | **[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)** | Interactive OpenAPI Swagger UI to execute and test API routes live |
+| **📦 Dataset Ingestion API** | **[http://localhost:8000/api/v1/datasets](http://localhost:8000/api/v1/datasets)** | **[http://127.0.0.1:8000/api/v1/datasets](http://127.0.0.1:8000/api/v1/datasets)** | Dataset catalog listing, file upload, inspection, and sampling |
 | **📖 Backend API ReDoc** | **[http://localhost:8000/redoc](http://localhost:8000/redoc)** | **[http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)** | Clean, formal API reference documentation |
 | **🩺 System Health Diagnostics** | **[http://localhost:8000/api/v1/health](http://localhost:8000/api/v1/health)** | **[http://127.0.0.1:8000/api/v1/health](http://127.0.0.1:8000/api/v1/health)** | Real-time database pool & ML model fleet readiness status |
 | **🚦 Live Traffic Telemetry & Forecasts** | **[http://localhost:8000/api/v1/traffic/speed](http://localhost:8000/api/v1/traffic/speed)** | **[http://127.0.0.1:8000/api/v1/traffic/speed](http://127.0.0.1:8000/api/v1/traffic/speed)** | Corridor speed monitoring and 90% quantile forecasts |
@@ -63,7 +65,14 @@ When running the project locally, access the platform services directly via thes
 
 ## ✨ Key Platform Capabilities
 
-### 1. 🚦 Traffic Intelligence & Non-Parametric Quantile Forecasting
+### 1. 📁 Dataset Ingestion & Smart Preflight Quality Gates
+* **Multimodal File Upload**: Supports Drag & Drop of `.csv`, `.xlsx`, and `.json` telemetry with built-in municipal sample datasets.
+* **Smart Semantic Column Mapping**: Automatic heuristic detection of target standard schema fields (`speed`, `latitude`, `longitude`, `observation_time_utc`) with confidence scores.
+* **Four-Dimension Quality Gate**: Audits Completeness ($\ge 95\%$), Validity ($\ge 98\%$), Uniqueness ($\ge 99\%$), and Consistency ($\ge 90\%$).
+* **Zero-Silent-Deletion Policy**: Corrupted records or bounding violations are strictly quarantined into `data/quarantine/` for forensic review rather than dropped.
+* **Immutable Version Fingerprints**: Generates deterministic SHA-256 data manifests in `data/manifests/` for complete ML training auditability.
+
+### 2. 🚦 Traffic Intelligence & Non-Parametric Quantile Forecasting
 * **Calibrated Uncertainty Bounds**: Foregoes naive point predictions in favor of non-parametric LightGBM quantile regression $[q_{0.05}, q_{0.50}, q_{0.95}]$.
 * **90% Prediction Interval Coverage**: Formally guaranteed through asymmetric pinball loss optimization, enabling dispatchers to anticipate traffic volatility.
 * **Corridor Monitoring**: Multi-horizon forecasts across 1, 3, 6, and 24-hour dispatch horizons with zero data leakage.

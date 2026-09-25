@@ -135,3 +135,67 @@ export const MOCK_SYSTEM_HEALTH: HealthCheckData = {
     anomaly_detector_model: { status: 'HEALTHY', details: { model: 'UrbanAnomalyDetector', version: 'v1.0' } },
   },
 };
+
+export const MOCK_DATASETS = [
+  {
+    dataset_name: 'chicago_traffic_loop_telemetry',
+    category: 'traffic',
+    version_id: 'traffic-v_27409a8ba5',
+    sha256_hash: '27409a8ba59df189025e1431bdce5784',
+    row_count: 12500,
+    columns: ['segment_id', 'street_name', 'direction', 'observation_time_utc', 'speed', 'start_latitude', 'start_longitude'],
+    quality_score: 98.4,
+    created_at_utc: '2026-09-25T19:13:35Z',
+    is_active: true,
+  },
+  {
+    dataset_name: 'cook_county_arterial_crashes',
+    category: 'accidents',
+    version_id: 'crashes-v_9c417b01d2',
+    sha256_hash: '9c417b01d2f8319aa0182410a78b5413',
+    row_count: 8420,
+    columns: ['crash_record_id', 'crash_date', 'posted_speed_limit', 'weather_condition', 'lighting_condition', 'injuries_total', 'latitude', 'longitude'],
+    quality_score: 96.8,
+    created_at_utc: '2026-09-25T20:22:10Z',
+    is_active: true,
+  },
+  {
+    dataset_name: 'illinois_epa_ambient_air_monitoring',
+    category: 'air_quality',
+    version_id: 'air_quality-v_7a812f94e3',
+    sha256_hash: '7a812f94e3b1c890125e1431bdce5784',
+    row_count: 5190,
+    columns: ['station_id', 'station_name', 'parameter_name', 'sample_measurement', 'units_of_measure', 'raw_timestamp', 'latitude', 'longitude'],
+    quality_score: 99.1,
+    created_at_utc: '2026-09-25T21:05:44Z',
+    is_active: true,
+  },
+];
+
+export const MOCK_UPLOAD_RESPONSE = {
+  success: true,
+  message: "Dataset successfully processed and versioned as 'telemetry-v_mock_e9102'.",
+  dataset_name: 'uploaded_telemetry_batch',
+  version_id: 'telemetry-v_mock_e9102',
+  sha256_hash: 'e9102fb90238127df90218731bdce578490a187ef1c06d86ae48bf41a6f874bc',
+  total_rows: 1500,
+  valid_rows: 1478,
+  quarantined_rows: 22,
+  quality_report: {
+    completeness_score: 98.5,
+    validity_score: 98.53,
+    uniqueness_score: 99.8,
+    consistency_score: 98.52,
+    total_records: 1500,
+    valid_records: 1478,
+    quarantined_records: 22,
+    is_approved: true,
+    warnings: ['Quarantined 22 rows with out-of-range sensor coordinates.'],
+  },
+  preview_records: [
+    { segment_id: 101, street_name: 'Michigan Ave', speed: 28.5, start_latitude: 41.8885, start_longitude: -87.6243, observation_time_utc: '2026-09-25T14:00:00Z' },
+    { segment_id: 102, street_name: 'Wacker Dr', speed: 19.2, start_latitude: 41.8890, start_longitude: -87.6250, observation_time_utc: '2026-09-25T14:05:00Z' },
+    { segment_id: 103, street_name: 'State St', speed: 14.8, start_latitude: 41.8870, start_longitude: -87.6275, observation_time_utc: '2026-09-25T14:10:00Z' },
+  ],
+};
+

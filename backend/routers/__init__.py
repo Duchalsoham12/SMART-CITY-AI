@@ -11,6 +11,7 @@ from backend.routers.anomalies import router as anomalies_router
 from backend.routers.geospatial import router as geospatial_router
 from backend.routers.insights import router as insights_router
 from backend.routers.health import router as health_router
+from backend.routers.datasets import router as datasets_router
 
 __all__ = [
     "traffic_router",
@@ -21,4 +22,5 @@ __all__ = [
     "geospatial_router",
     "insights_router",
     "health_router",
+    "datasets_router",
 ]
