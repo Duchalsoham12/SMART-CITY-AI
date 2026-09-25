@@ -1,4 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import {
+  Compass,
+  HelpCircle,
+  Database,
+  Shield,
+  Clock,
+} from 'lucide-react';
 import { PageId } from './Sidebar';
 
 interface HeaderProps {
@@ -22,52 +29,78 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenTour,
   onOpenUpload,
 }) => {
-  const pageTitles: Record<PageId, { title: string; subtitle: string }> = {
+  const [timeUtc, setTimeUtc] = useState<string>('');
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTimeUtc(
+        now.toISOString().substring(11, 19) + ' UTC'
+      );
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const pageTitles: Record<PageId, { title: string; category: string; subtitle: string }> = {
     overview: {
+      category: 'Command Core',
       title: 'Executive Metropolitan Overview',
       subtitle: 'Real-time urban stress index, multimodal KPIs, and high-priority alerts',
     },
     datasets: {
-      title: 'Dataset Management & Preflight Ingestion',
+      category: 'Data Engineering',
+      title: 'Dataset Ingestion & Management',
       subtitle: 'Upload CSV/Excel telemetry, semantic column mapping, preflight validation & quality audits',
     },
     traffic: {
-      title: 'Traffic Intelligence & Flow',
+      category: 'Mobility & Flow',
+      title: 'Traffic Intelligence & Corridor Speeds',
       subtitle: 'Corridor speed monitoring, congestion levels, and quantile forecasting',
     },
     environment: {
-      title: 'Environmental & Air Quality',
+      category: 'Atmospheric Sensors',
+      title: 'Environmental & Air Quality Telemetry',
       subtitle: 'Atmospheric pollutant monitoring, AQI categories, and dispersion modeling',
     },
     safety: {
+      category: 'Public Safety',
       title: 'Safety Risk & Crash Analytics',
-      subtitle: 'Accident severity classification, H3 spatial binning, and SHAP feature attributions',
+      subtitle: 'Accident severity classification, H3 spatial binning, and TreeSHAP attributions',
     },
     geospatial: {
+      category: 'Spatial Analytics',
       title: 'Geospatial Intelligence Explorer',
       subtitle: 'Interactive Leaflet H3 hexagonal risk grid with Empirical Bayes rate smoothing',
     },
     forecasting: {
+      category: 'Machine Learning',
       title: 'Predictive Forecasting Subsystem',
       subtitle: 'Multi-horizon quantile predictions with 90% non-parametric prediction intervals',
     },
     anomalies: {
+      category: 'Sensor Quality',
       title: 'Urban Anomaly Detection',
       subtitle: 'Unsupervised Isolation Forest and residual Z-score outlier detection',
     },
     assistant: {
+      category: 'Decision Support',
       title: 'AI-Powered Urban Analytics Assistant',
       subtitle: 'Grounded natural language decision support with zero hallucination and source citations',
     },
     models: {
+      category: 'MLOps & Fleet',
       title: 'ML Model Fleet Performance',
       subtitle: 'Evaluation benchmarks, cross-validation metrics, and baseline comparisons',
     },
     health: {
+      category: 'Infrastructure',
       title: 'System Health & Telemetry Diagnostics',
       subtitle: 'Database connection pooling, model fleet readiness, and infrastructure uptime',
     },
     docs: {
+      category: 'Knowledge Base',
       title: 'User Guide & Documentation Center',
       subtitle: 'Platform manuals, prediction explanations, data engineering guides, and FAQs',
     },
@@ -76,22 +109,42 @@ export const Header: React.FC<HeaderProps> = ({
   const currentMeta = pageTitles[currentPage] || pageTitles.overview;
 
   return (
-    <header className="h-16 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-6 flex items-center justify-between sticky top-0 z-40">
-      <div>
-        <h2 className="text-sm font-bold text-white tracking-tight">{currentMeta.title}</h2>
-        <p className="text-[11px] text-slate-400">{currentMeta.subtitle}</p>
+    <header className="h-16 bg-slate-950/80 backdrop-blur-xl border-b border-white/[0.08] px-6 flex items-center justify-between sticky top-0 z-40 shadow-sm">
+      {/* Breadcrumb & Section Title */}
+      <div className="flex items-center gap-4">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-teal-400 font-bold bg-teal-500/10 px-2 py-0.5 rounded border border-teal-500/20">
+              {currentMeta.category}
+            </span>
+            <span className="text-slate-600 text-xs">/</span>
+            <h2 className="text-xs sm:text-sm font-bold text-white tracking-tight">
+              {currentMeta.title}
+            </h2>
+          </div>
+          <p className="text-[11px] text-slate-400 hidden lg:block leading-none mt-1">
+            {currentMeta.subtitle}
+          </p>
+        </div>
       </div>
 
+      {/* Right Controls & Status Pill Bar */}
       <div className="flex items-center gap-3">
+        {/* Live UTC Digital Clock */}
+        <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/60 border border-white/[0.08] text-[11px] font-mono text-slate-300">
+          <Clock className="w-3.5 h-3.5 text-teal-400" />
+          <span>{timeUtc || '00:00:00 UTC'}</span>
+        </div>
+
         {/* Quick Add Dataset Button */}
         {onOpenUpload && (
           <button
             onClick={onOpenUpload}
-            className="px-2.5 py-1.5 bg-teal-600/30 hover:bg-teal-600/40 text-teal-200 border border-teal-500/40 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-sm"
+            className="px-3 py-1.5 bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-500 hover:to-teal-400 text-white font-semibold rounded-xl text-xs transition-all shadow-md shadow-teal-950/50 flex items-center gap-1.5 active:scale-95"
             title="Upload New Dataset Telemetry (CSV, XLSX, JSON)"
           >
-            <span>📁</span>
-            <span>+ Add Data</span>
+            <Database className="w-3.5 h-3.5" />
+            <span className="font-bold">+ Ingest Data</span>
           </button>
         )}
 
@@ -99,10 +152,10 @@ export const Header: React.FC<HeaderProps> = ({
         {onOpenTour && (
           <button
             onClick={onOpenTour}
-            className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-teal-300 border border-slate-700 hover:border-teal-500/40 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5"
+            className="px-2.5 py-1.5 bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-white/[0.08] hover:border-teal-500/40 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5"
             title="Start Interactive Platform Tour"
           >
-            <span>🚀</span>
+            <Compass className="w-3.5 h-3.5 text-teal-400" />
             <span className="hidden sm:inline">Tour</span>
           </button>
         )}
@@ -111,33 +164,37 @@ export const Header: React.FC<HeaderProps> = ({
         {onOpenHelp && (
           <button
             onClick={onOpenHelp}
-            className="px-2.5 py-1.5 bg-teal-600/20 hover:bg-teal-600/30 text-teal-300 border border-teal-500/40 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 shadow-sm"
+            className="px-2.5 py-1.5 bg-slate-900/80 hover:bg-slate-800 text-teal-300 border border-white/[0.08] hover:border-teal-500/40 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5"
             title="Open Help Center & Documentation (Shortcut: ?)"
           >
-            <span className="font-bold">?</span>
+            <HelpCircle className="w-3.5 h-3.5 text-teal-400" />
             <span className="hidden sm:inline">Help</span>
             <span className="hidden md:inline text-[10px] text-teal-400/80 font-mono">(?)</span>
           </button>
         )}
 
-        {/* Live vs Offline Data Toggle */}
-        <div className="flex items-center bg-slate-950 border border-slate-800 rounded-lg p-1 text-xs">
+        {/* Live vs Offline Data Mode Segmented Switch */}
+        <div className="flex items-center bg-slate-900/90 border border-white/[0.08] rounded-xl p-0.5 text-xs shadow-inner">
           <button
             onClick={() => onToggleLiveApi(true)}
-            className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors flex items-center gap-1.5 ${
+            className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all flex items-center gap-1.5 ${
               isLiveApi
-                ? 'bg-teal-600 text-white shadow-sm'
+                ? 'bg-teal-600 text-white shadow-md shadow-teal-950/60'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <span className={`w-1.5 h-1.5 rounded-full ${isLiveApi ? 'bg-white animate-pulse' : 'bg-slate-500'}`}></span>
-            Live API (Port 8000)
+            <span
+              className={`w-1.5 h-1.5 rounded-full ${
+                isLiveApi ? 'bg-white animate-pulse' : 'bg-slate-500'
+              }`}
+            />
+            <span>Live API</span>
           </button>
           <button
             onClick={() => onToggleLiveApi(false)}
-            className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-colors ${
+            className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all ${
               !isLiveApi
-                ? 'bg-amber-600 text-white shadow-sm'
+                ? 'bg-amber-600 text-white shadow-md'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -145,17 +202,17 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         </div>
 
-        {/* User Role Selector */}
-        <div className="flex items-center gap-2 text-xs">
-          <span className="text-slate-500 hidden sm:inline">Role:</span>
+        {/* User Role Selector Pill */}
+        <div className="flex items-center gap-1.5 bg-slate-900/80 border border-white/[0.08] rounded-xl px-2 py-1 text-xs">
+          <Shield className="w-3.5 h-3.5 text-slate-400" />
           <select
             value={userRole}
             onChange={(e) => onRoleChange(e.target.value)}
-            className="bg-slate-950 border border-slate-800 text-slate-300 rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:border-teal-500"
+            className="bg-transparent text-slate-200 text-xs font-semibold focus:outline-none cursor-pointer pr-1"
           >
-            <option value="viewer">Viewer (Read-only)</option>
-            <option value="analyst">Analyst (Ingest &amp; Score)</option>
-            <option value="admin">Admin (Full Control)</option>
+            <option value="viewer" className="bg-slate-900 text-slate-200">Viewer</option>
+            <option value="analyst" className="bg-slate-900 text-slate-200">Analyst</option>
+            <option value="admin" className="bg-slate-900 text-slate-200">Admin</option>
           </select>
         </div>
       </div>

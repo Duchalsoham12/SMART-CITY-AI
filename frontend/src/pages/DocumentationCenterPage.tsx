@@ -1,5 +1,23 @@
 import React, { useState, useMemo } from 'react';
 import { HELP_ARTICLES, HelpArticle } from '../content/helpContent';
+import {
+  BookOpen,
+  Sparkles,
+  Layers,
+  TrendingUp,
+  Lightbulb,
+  Database,
+  HelpCircle,
+  Wrench,
+  Keyboard,
+  Compass,
+  Sliders,
+  Search,
+  ShieldCheck,
+  ChevronDown,
+  ChevronUp,
+  ArrowRight,
+} from 'lucide-react';
 
 interface DocumentationCenterPageProps {
   onStartTour?: () => void;
@@ -19,15 +37,15 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
   const [expandedFaqIndex, setExpandedFaqIndex] = useState<number | null>(null);
 
   const categories = [
-    { id: 'all', label: 'All Manuals', icon: '📚' },
-    { id: 'getting-started', label: 'Getting Started', icon: '🚀' },
-    { id: 'modules', label: 'Modules & Map', icon: '🗺️' },
-    { id: 'predictions', label: 'Predictions & Metrics', icon: '📈' },
-    { id: 'solutions', label: 'Solutions & Assistant', icon: '💡' },
-    { id: 'datasets', label: 'Datasets & Quality', icon: '📁' },
-    { id: 'faq', label: 'FAQ', icon: '❓' },
-    { id: 'troubleshooting', label: 'Troubleshooting', icon: '🔧' },
-    { id: 'shortcuts', label: 'Hotkeys', icon: '⌨️' },
+    { id: 'all', label: 'All Manuals', icon: <BookOpen className="w-3.5 h-3.5" /> },
+    { id: 'getting-started', label: 'Getting Started', icon: <Sparkles className="w-3.5 h-3.5" /> },
+    { id: 'modules', label: 'Modules & Map', icon: <Layers className="w-3.5 h-3.5" /> },
+    { id: 'predictions', label: 'Predictions & Metrics', icon: <TrendingUp className="w-3.5 h-3.5" /> },
+    { id: 'solutions', label: 'Solutions & Assistant', icon: <Lightbulb className="w-3.5 h-3.5" /> },
+    { id: 'datasets', label: 'Datasets & Quality', icon: <Database className="w-3.5 h-3.5" /> },
+    { id: 'faq', label: 'FAQ', icon: <HelpCircle className="w-3.5 h-3.5" /> },
+    { id: 'troubleshooting', label: 'Troubleshooting', icon: <Wrench className="w-3.5 h-3.5" /> },
+    { id: 'shortcuts', label: 'Hotkeys', icon: <Keyboard className="w-3.5 h-3.5" /> },
   ];
 
   const roleGuidance = {
@@ -118,11 +136,12 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
   return (
     <div className="space-y-8 animate-in fade-in duration-200">
       {/* Hero Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-teal-950/40 to-slate-900 border border-teal-500/30 rounded-3xl p-8 relative overflow-hidden shadow-2xl">
+      <div className="glass-panel rounded-3xl p-8 relative overflow-hidden border border-teal-500/30 shadow-2xl">
         <div className="relative z-10 max-w-3xl">
           <div className="flex items-center gap-2 mb-3">
-            <span className="px-2.5 py-1 bg-teal-500/10 border border-teal-500/30 text-teal-400 font-mono text-xs rounded-full font-bold">
-              📚 System Documentation &amp; User Manual
+            <span className="px-3 py-1 bg-teal-500/10 border border-teal-500/30 text-teal-400 font-mono text-xs rounded-full font-bold flex items-center gap-1.5">
+              <BookOpen className="w-3.5 h-3.5" />
+              System Documentation &amp; User Manual
             </span>
             <span className="text-slate-500 text-xs font-mono">&bull; v1.0 Production Edition</span>
           </div>
@@ -140,45 +159,45 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
             {onStartTour && (
               <button
                 onClick={onStartTour}
-                className="px-4 py-2 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold rounded-xl transition-colors flex items-center gap-2 shadow-lg shadow-teal-900/30"
+                className="px-4 py-2 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-white text-xs font-semibold rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-teal-900/30"
               >
-                <span>🚀</span> Launch Interactive Tour
+                <Compass className="w-3.5 h-3.5" /> Launch Interactive Tour
               </button>
             )}
             {onOpenOnboarding && (
               <button
                 onClick={onOpenOnboarding}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2"
+                className="px-4 py-2 glass-card hover:border-slate-600 text-slate-200 border border-slate-700 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2"
               >
-                <span>🏙️</span> Re-open Welcome Onboarding
+                <Sparkles className="w-3.5 h-3.5 text-teal-300" /> Re-open Welcome Onboarding
               </button>
             )}
             <button
               onClick={() => setSelectedCategory('shortcuts')}
-              className="px-4 py-2 bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800 text-xs font-medium rounded-xl transition-colors flex items-center gap-2"
+              className="px-4 py-2 glass-card hover:border-slate-600 text-slate-300 border border-slate-800 text-xs font-medium rounded-xl transition-colors flex items-center gap-2"
             >
-              <span>⌨️</span> View Hotkeys
+              <Keyboard className="w-3.5 h-3.5 text-slate-400" /> View Hotkeys
             </button>
           </div>
         </div>
 
         {/* Decorative Background Accent */}
-        <div className="absolute right-0 bottom-0 translate-x-12 translate-y-12 w-64 h-64 bg-teal-500/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute right-0 bottom-0 translate-x-12 translate-y-12 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
       </div>
 
       {/* Role-Based Quick Path Selector */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-sm">
+      <div className="glass-panel border border-slate-800/80 rounded-2xl p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div>
             <h2 className="text-sm font-bold text-white tracking-tight flex items-center gap-2">
-              <span>🎯</span> Role-Based Quick Path
+              <Sliders className="w-4 h-4 text-teal-400" /> Role-Based Quick Path
             </h2>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-400 mt-0.5">
               Select your role to see curated responsibilities, operational priorities, and suggested workflows.
             </p>
           </div>
 
-          <div className="flex items-center bg-slate-950 border border-slate-800 rounded-xl p-1 text-xs">
+          <div className="flex items-center bg-slate-950/80 border border-slate-800/80 rounded-xl p-1 text-xs">
             {(
               [
                 ['analyst', 'Traffic Analyst'],
@@ -190,9 +209,9 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
               <button
                 key={key}
                 onClick={() => setActiveRoleTab(key)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   activeRoleTab === key
-                    ? 'bg-teal-600 text-white shadow-sm font-semibold'
+                    ? 'bg-teal-600 text-white shadow-md font-semibold'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
@@ -237,9 +256,9 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
                   <button
                     key={modId}
                     onClick={() => onNavigate && onNavigate(modId)}
-                    className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 rounded-lg text-xs text-slate-200 transition-colors flex items-center gap-1.5"
+                    className="px-3 py-1.5 bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 rounded-lg text-xs text-slate-200 transition-colors flex items-center gap-1.5"
                   >
-                    <span>➔</span>
+                    <ArrowRight className="w-3 h-3 text-teal-400" />
                     <span className="capitalize">{modId}</span>
                   </button>
                 ))}
@@ -250,18 +269,18 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
       </div>
 
       {/* Main Knowledge Base Browser */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden flex flex-col">
+      <div className="glass-panel border border-slate-800/80 rounded-2xl shadow-xl overflow-hidden flex flex-col">
         {/* Search & Category Filter Navigation */}
-        <div className="p-4 sm:p-6 border-b border-slate-800 bg-slate-900/90 space-y-4">
+        <div className="p-4 sm:p-6 border-b border-slate-800/80 bg-slate-950/40 space-y-4">
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
             <div className="relative w-full sm:w-96">
-              <span className="absolute left-3.5 top-2.5 text-slate-500 text-xs">🔍</span>
+              <Search className="w-3.5 h-3.5 absolute left-3.5 top-3 text-slate-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search across all user manuals, metrics, or errors..."
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-8 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-teal-500 transition-colors"
+                className="w-full bg-slate-950/80 border border-slate-800/80 rounded-xl pl-9 pr-8 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-teal-500 transition-colors"
               />
               {searchQuery && (
                 <button
@@ -273,7 +292,7 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
               )}
             </div>
 
-            <div className="text-xs text-slate-400">
+            <div className="text-xs text-slate-400 font-mono">
               Showing <span className="font-bold text-teal-400">{filteredArticles.length}</span> documented topics
             </div>
           </div>
@@ -289,7 +308,7 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
                   className={`px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-2 ${
                     active
                       ? 'bg-teal-500 text-slate-950 font-bold shadow-md'
-                      : 'bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800 hover:bg-slate-800'
+                      : 'bg-slate-950/60 text-slate-400 hover:text-slate-200 border border-slate-800/80 hover:bg-slate-800'
                   }`}
                 >
                   <span>{cat.icon}</span>
@@ -301,12 +320,12 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
         </div>
 
         {/* Two-Column Explorer Layout */}
-        <div className="flex flex-col lg:flex-row divide-y lg:divide-y-0 lg:divide-x divide-slate-800 min-h-[500px]">
+        <div className="flex flex-col lg:flex-row divide-y lg:divide-y-0 lg:divide-x divide-slate-800/80 min-h-[500px]">
           {/* Article Index Column */}
           <div className="lg:w-80 p-4 space-y-2 bg-slate-950/40 overflow-y-auto max-h-[600px]">
             {filteredArticles.length === 0 ? (
               <div className="text-center py-12 px-4 text-xs text-slate-500">
-                <p className="text-2xl mb-2">🔍</p>
+                <Search className="w-8 h-8 mx-auto mb-2 text-slate-600" />
                 <p className="font-semibold text-slate-400">No matching articles</p>
                 <p className="mt-1 text-[11px]">Try adjusting your search query.</p>
               </div>
@@ -351,7 +370,7 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
           <div className="flex-1 p-6 sm:p-8 bg-slate-900/50 space-y-6 overflow-y-auto max-h-[700px]">
             {activeArticle && (
               <>
-                <div className="border-b border-slate-800 pb-5">
+                <div className="border-b border-slate-800/80 pb-5">
                   <div className="flex items-center gap-3 mb-2">
                     <span className="text-3xl">{activeArticle.icon}</span>
                     <div>
@@ -363,7 +382,7 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
                       </h3>
                     </div>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed bg-slate-950/70 border border-slate-800 rounded-2xl p-4 mt-3">
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed bg-slate-950/70 border border-slate-800/80 rounded-2xl p-4 mt-3">
                     {activeArticle.summary}
                   </p>
                 </div>
@@ -399,7 +418,7 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
                 {activeArticle.tips && activeArticle.tips.length > 0 && (
                   <div className="bg-teal-950/30 border border-teal-800/40 rounded-2xl p-4 sm:p-5 space-y-2">
                     <span className="text-xs font-bold text-teal-400 flex items-center gap-2">
-                      <span>💡</span> Operational Recommendations &amp; Guidance
+                      <Lightbulb className="w-3.5 h-3.5" /> Operational Recommendations &amp; Guidance
                     </span>
                     <ul className="space-y-1.5 pl-2">
                       {activeArticle.tips.map((tip, i) => (
@@ -418,10 +437,10 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
       </div>
 
       {/* Interactive FAQ Accordion Section */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
+      <div className="glass-panel border border-slate-800/80 rounded-2xl p-6 shadow-sm space-y-4">
         <div>
           <h2 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
-            <span>❓</span> Frequently Asked Questions &amp; Methodological Clarifications
+            <HelpCircle className="w-4 h-4 text-teal-400" /> Frequently Asked Questions &amp; Methodological Clarifications
           </h2>
           <p className="text-xs text-slate-400 mt-1">
             Common questions regarding prediction validity, legal disclaimers, data privacy, and platform behavior.
@@ -434,17 +453,19 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
             return (
               <div
                 key={idx}
-                className="border border-slate-800 bg-slate-950/50 rounded-xl overflow-hidden transition-colors"
+                className="border border-slate-800/80 bg-slate-950/50 rounded-xl overflow-hidden transition-colors"
               >
                 <button
                   onClick={() => setExpandedFaqIndex(isExpanded ? null : idx)}
                   className="w-full text-left p-4 flex items-center justify-between text-xs font-semibold text-slate-200 hover:text-white"
                 >
                   <span className="flex items-center gap-2">
-                    <span className="text-teal-400 font-bold">Q{idx + 1}.</span>
+                    <span className="text-teal-400 font-bold font-mono">Q{idx + 1}.</span>
                     <span>{item.q}</span>
                   </span>
-                  <span className="text-slate-500 font-mono">{isExpanded ? '▲' : '▼'}</span>
+                  <span className="text-slate-500 font-mono">
+                    {isExpanded ? <ChevronUp className="w-4 h-4 text-teal-400" /> : <ChevronDown className="w-4 h-4 text-slate-500" />}
+                  </span>
                 </button>
                 {isExpanded && (
                   <div className="p-4 pt-0 text-xs text-slate-300 leading-relaxed border-t border-slate-800/60 bg-slate-950/80">
@@ -458,8 +479,8 @@ export const DocumentationCenterPage: React.FC<DocumentationCenterPageProps> = (
       </div>
 
       {/* Epistemic Integrity Notice */}
-      <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 flex items-start gap-3">
-        <span className="text-teal-400 text-lg mt-0.5">⚖️</span>
+      <div className="glass-panel border border-slate-800/80 rounded-2xl p-5 flex items-start gap-3.5">
+        <ShieldCheck className="w-5 h-5 text-teal-400 shrink-0 mt-0.5" />
         <div className="space-y-1">
           <h4 className="text-xs font-bold text-white tracking-tight">
             Epistemic Distinction Standard

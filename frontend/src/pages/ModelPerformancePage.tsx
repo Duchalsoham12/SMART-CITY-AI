@@ -1,4 +1,5 @@
 import React from 'react';
+import { Cpu, CheckCircle2, TrendingUp, BarChart3, GitBranch } from 'lucide-react';
 
 export const ModelPerformancePage: React.FC = () => {
   const models = [
@@ -70,57 +71,79 @@ export const ModelPerformancePage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Overview Banner */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <span className="text-[11px] font-mono font-semibold text-teal-400 uppercase tracking-wider block mb-1">
-            Machine Learning Governance
-          </span>
-          <h3 className="text-base font-bold text-white">Model Fleet Performance &amp; Baseline Leaderboard</h3>
-          <p className="text-xs text-slate-400 mt-0.5 max-w-2xl">
-            Strict verification against historical baselines before model promotion. Evaluated using time-aware and
-            group-aware cross-validation to guarantee zero temporal or spatial data leakage.
-          </p>
+      <div className="glass-panel p-5 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-slate-800/80">
+        <div className="flex items-start gap-3.5">
+          <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400 shrink-0">
+            <Cpu className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-[11px] font-mono font-semibold text-teal-400 uppercase tracking-wider">
+                Machine Learning Governance &bull; Zero Data Leakage
+              </span>
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-teal-500/10 text-teal-300 border border-teal-500/20">
+                Purged CV Splits
+              </span>
+            </div>
+            <h2 className="text-base font-bold text-white tracking-tight">Model Fleet Performance &amp; Baseline Leaderboard</h2>
+            <p className="text-xs text-slate-400 mt-0.5 max-w-2xl">
+              Strict verification against historical baselines before model promotion. Evaluated using time-aware and group-aware cross-validation to guarantee zero temporal or spatial data leakage.
+            </p>
+          </div>
         </div>
-        <div className="text-right font-mono text-xs text-slate-400 shrink-0">
-          <div className="text-teal-400 font-bold">5 Active Production Models</div>
-          <div className="text-[11px] text-slate-500">MLflow Tracked &bull; DVC Versioned</div>
+        <div className="text-right font-mono text-xs text-slate-400 shrink-0 bg-slate-950/60 px-3.5 py-2 rounded-xl border border-slate-800/80">
+          <div className="text-teal-400 font-bold flex items-center gap-1.5 justify-end">
+            <CheckCircle2 className="w-3.5 h-3.5 text-teal-400" />
+            5 Production Models Active
+          </div>
+          <div className="text-[11px] text-slate-500 mt-0.5">MLflow Tracked &bull; DVC Versioned</div>
         </div>
       </div>
 
       {/* Model Cards List */}
       <div className="space-y-6">
         {models.map((m, idx) => (
-          <div key={idx} className="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
-              <div>
-                <h4 className="text-sm font-bold text-white">{m.name}</h4>
-                <div className="text-xs text-teal-400 font-mono mt-0.5">{m.type}</div>
+          <div key={idx} className="glass-panel rounded-2xl p-6 border border-slate-800/80 space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-lg bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 shrink-0 mt-0.5">
+                  <BarChart3 className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-white tracking-tight">{m.name}</h3>
+                  <div className="text-xs text-teal-400 font-mono mt-0.5">{m.type}</div>
+                </div>
               </div>
-              <div className="text-left sm:text-right text-xs">
-                <span className="text-slate-500 block text-[11px]">Baseline Comparison:</span>
-                <span className="text-slate-300 font-mono text-[11px]">{m.baseline}</span>
+              <div className="text-left sm:text-right text-xs bg-slate-950/60 px-3 py-1.5 rounded-xl border border-slate-800/80">
+                <span className="text-slate-500 block text-[10px] uppercase font-mono">Benchmark Baseline:</span>
+                <span className="text-slate-300 font-mono text-[11px] font-semibold">{m.baseline}</span>
               </div>
             </div>
 
             {/* Metrics Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3">
               {m.metrics.map((metric, i) => (
-                <div key={i} className="bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs">
-                  <span className="text-slate-500 uppercase font-mono text-[10px] block">{metric.label}</span>
-                  <div className="mt-1 flex items-baseline justify-between">
+                <div key={i} className="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800/80 text-xs hover:border-slate-700 transition-colors">
+                  <span className="text-slate-400 uppercase font-mono text-[10px] block font-medium">{metric.label}</span>
+                  <div className="mt-1.5 flex items-baseline justify-between">
                     <span className="text-base font-extrabold text-white font-mono">{metric.value}</span>
                     <span className="text-[10px] text-slate-500 font-mono line-through">{metric.baselineVal}</span>
+                  </div>
+                  <div className="mt-1 flex items-center gap-1 text-[10px] text-emerald-400 font-mono">
+                    <TrendingUp className="w-3 h-3" />
+                    <span>Outperforms baseline</span>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2 text-[11px] text-slate-400 font-mono bg-slate-950/60 p-3 rounded-lg border border-slate-800/80">
-              <div>
-                <span className="text-slate-500">Validation Protocol: </span>
-                <span className="text-slate-300">{m.validationStrategy}</span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[11px] text-slate-400 font-mono bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
+              <div className="flex items-center gap-2">
+                <GitBranch className="w-3.5 h-3.5 text-slate-400" />
+                <span className="text-slate-500">Validation Protocol:</span>
+                <span className="text-slate-200 font-semibold">{m.validationStrategy}</span>
               </div>
-              <div className="text-teal-400">
+              <div className="text-teal-400 font-medium">
                 {m.notes}
               </div>
             </div>

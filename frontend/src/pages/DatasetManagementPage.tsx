@@ -114,42 +114,50 @@ export const DatasetManagementPage: React.FC<DatasetManagementPageProps> = () =>
 
       {/* Top 4 KPI Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+        <div className="glass-card rounded-2xl p-5 shadow-sm hover:border-teal-500/40 transition-all">
           <div className="flex items-center justify-between text-slate-400 text-xs font-medium mb-1">
-            <span>Registered Catalogs</span>
-            <span className="text-lg">📁</span>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider">Registered Catalogs</span>
+            <span className="p-1.5 rounded-lg bg-teal-500/10 text-teal-400 border border-teal-500/20 text-xs font-mono">
+              CATALOG
+            </span>
           </div>
-          <div className="text-2xl font-bold text-white font-mono">{datasets.length}</div>
-          <span className="text-[11px] text-teal-400 mt-1 block">Active Ingest Streams</span>
+          <div className="text-3xl font-extrabold text-white font-mono">{datasets.length}</div>
+          <span className="text-[11px] text-teal-400 mt-1 block font-medium">Active Ingest Streams</span>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+        <div className="glass-card rounded-2xl p-5 shadow-sm hover:border-teal-500/40 transition-all">
           <div className="flex items-center justify-between text-slate-400 text-xs font-medium mb-1">
-            <span>Verified Records</span>
-            <span className="text-lg">📊</span>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider">Verified Records</span>
+            <span className="p-1.5 rounded-lg bg-teal-500/10 text-teal-400 border border-teal-500/20 text-xs font-mono">
+              ROWS
+            </span>
           </div>
-          <div className="text-2xl font-bold text-teal-300 font-mono">
+          <div className="text-3xl font-extrabold text-teal-300 font-mono">
             {totalRecords.toLocaleString()}
           </div>
-          <span className="text-[11px] text-slate-400 mt-1 block">PostgreSQL Analytical Rows</span>
+          <span className="text-[11px] text-slate-400 mt-1 block font-medium">PostgreSQL Analytical Rows</span>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+        <div className="glass-card rounded-2xl p-5 shadow-sm hover:border-emerald-500/40 transition-all">
           <div className="flex items-center justify-between text-slate-400 text-xs font-medium mb-1">
-            <span>Avg Quality Score</span>
-            <span className="text-lg">🧪</span>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider">Avg Quality Score</span>
+            <span className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono">
+              PASS
+            </span>
           </div>
-          <div className="text-2xl font-bold text-emerald-400 font-mono">{avgQuality}%</div>
-          <span className="text-[11px] text-emerald-400/80 mt-1 block">Exceeds 95% SLA Target</span>
+          <div className="text-3xl font-extrabold text-emerald-400 font-mono">{avgQuality}%</div>
+          <span className="text-[11px] text-emerald-400/80 mt-1 block font-medium">Exceeds 95% SLA Target</span>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+        <div className="glass-card rounded-2xl p-5 shadow-sm hover:border-indigo-500/40 transition-all">
           <div className="flex items-center justify-between text-slate-400 text-xs font-medium mb-1">
-            <span>Quarantined Policy</span>
-            <span className="text-lg">🛡️</span>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider">Quarantined Policy</span>
+            <span className="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-mono">
+              AUDIT
+            </span>
           </div>
-          <div className="text-2xl font-bold text-indigo-300 font-mono">0 Deletions</div>
-          <span className="text-[11px] text-indigo-400 mt-1 block">Zero-Silent-Drop Enforced</span>
+          <div className="text-3xl font-extrabold text-indigo-300 font-mono">0 Deletions</div>
+          <span className="text-[11px] text-indigo-400 mt-1 block font-medium">Zero-Silent-Drop Enforced</span>
         </div>
       </div>
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ApiClient } from '../services/apiClient';
 import { AQIForecast, TrafficForecast } from '../types/api';
 import { EpistemicNotice } from '../components/common/EpistemicNotice';
+import { Navigation, Wind, TrendingUp, Sliders, Clock, Zap, Gauge, Droplets } from 'lucide-react';
 
 export const ForecastingPage: React.FC = () => {
   const [domain, setDomain] = useState<'traffic' | 'aqi'>('traffic');
@@ -60,46 +61,74 @@ export const ForecastingPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Domain Switcher */}
-      <div className="flex bg-slate-900 border border-slate-800 rounded-xl p-1 max-w-md">
-        <button
-          onClick={() => setDomain('traffic')}
-          className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
-            domain === 'traffic'
-              ? 'bg-teal-600 text-white shadow-sm'
-              : 'text-slate-400 hover:text-white'
-          }`}
-        >
-          🚦 Corridor Traffic Forecasting
-        </button>
-        <button
-          onClick={() => setDomain('aqi')}
-          className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
-            domain === 'aqi'
-              ? 'bg-teal-600 text-white shadow-sm'
-              : 'text-slate-400 hover:text-white'
-          }`}
-        >
-          🍃 Atmospheric AQI Forecasting
-        </button>
+      {/* Top Banner */}
+      <div className="glass-panel p-5 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-slate-800/80">
+        <div className="flex items-start gap-3.5">
+          <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400 shrink-0">
+            <Gauge className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-[11px] font-mono font-semibold text-teal-400 uppercase tracking-wider">
+                Multi-Horizon Predictive Simulation
+              </span>
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-teal-500/10 text-teal-300 border border-teal-500/20">
+                Pinball Loss Enforced
+              </span>
+            </div>
+            <h2 className="text-base font-bold text-white tracking-tight">Parametric Forecast Simulator &amp; Quantile Envelopes</h2>
+            <p className="text-xs text-slate-400 mt-0.5 max-w-2xl">
+              Simulate traffic congestion speeds and atmospheric pollutant vectors with calibrated 90% confidence bands, mitigating over-confident point predictions.
+            </p>
+          </div>
+        </div>
+
+        {/* Domain Switcher */}
+        <div className="flex bg-slate-950/80 border border-slate-800/80 rounded-xl p-1 shrink-0">
+          <button
+            onClick={() => setDomain('traffic')}
+            className={`flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-lg transition-all ${
+              domain === 'traffic'
+                ? 'bg-teal-600 text-white shadow-md shadow-teal-600/20'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Navigation className="w-3.5 h-3.5" />
+            Corridor Traffic
+          </button>
+          <button
+            onClick={() => setDomain('aqi')}
+            className={`flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-lg transition-all ${
+              domain === 'aqi'
+                ? 'bg-teal-600 text-white shadow-md shadow-teal-600/20'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Wind className="w-3.5 h-3.5" />
+            Atmospheric AQI
+          </button>
+        </div>
       </div>
 
       {domain === 'traffic' ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Controls */}
-          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
-            <h3 className="text-sm font-bold text-white">Traffic Forecasting Controls</h3>
+          <div className="glass-card rounded-2xl p-5 border border-slate-800/80 space-y-4">
+            <div className="flex items-center gap-2 mb-2 pb-2 border-b border-slate-800/80">
+              <Sliders className="w-4 h-4 text-teal-400" />
+              <h3 className="text-sm font-bold text-white tracking-tight">Traffic Parameters</h3>
+            </div>
             <p className="text-[11px] text-slate-400">
               Select segment, current telemetry speed, and prediction horizon for LightGBM pinball quantile loss.
             </p>
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-3.5 text-xs">
               <div>
-                <label className="text-slate-400 block text-[11px] mb-1">Target Corridor Segment</label>
+                <label className="text-slate-400 block text-[11px] font-medium uppercase tracking-wider mb-1.5">Target Corridor Segment</label>
                 <select
                   value={trafficSegment}
                   onChange={(e) => setTrafficSegment(parseInt(e.target.value))}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-slate-200"
+                  className="w-full bg-slate-950/80 border border-slate-800/80 rounded-xl p-2.5 text-slate-200 focus:outline-none focus:border-teal-500 transition-colors font-medium"
                 >
                   <option value={101}>Segment #101 - Michigan Avenue (Downtown Loop)</option>
                   <option value={108}>Segment #108 - Halsted Street (Near West)</option>
@@ -109,9 +138,9 @@ export const ForecastingPage: React.FC = () => {
               </div>
 
               <div>
-                <div className="flex justify-between text-slate-400 text-[11px] mb-1">
-                  <span>Current Sensor Speed</span>
-                  <span className="font-mono text-white">{trafficCurrentSpeed.toFixed(1)} mph</span>
+                <div className="flex justify-between text-slate-400 text-[11px] mb-1.5">
+                  <span className="font-medium uppercase tracking-wider">Current Sensor Speed</span>
+                  <span className="font-mono text-teal-300 font-bold">{trafficCurrentSpeed.toFixed(1)} mph</span>
                 </div>
                 <input
                   type="range"
@@ -120,21 +149,23 @@ export const ForecastingPage: React.FC = () => {
                   step="0.5"
                   value={trafficCurrentSpeed}
                   onChange={(e) => setTrafficCurrentSpeed(parseFloat(e.target.value))}
-                  className="w-full accent-teal-500"
+                  className="w-full accent-teal-400 cursor-pointer"
                 />
               </div>
 
               <div>
-                <label className="text-slate-400 block text-[11px] mb-1">Forecast Horizon</label>
+                <label className="text-slate-400 block text-[11px] font-medium uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-slate-400" /> Forecast Horizon
+                </label>
                 <div className="grid grid-cols-3 gap-2">
                   {[1, 3, 6].map((h) => (
                     <button
                       key={h}
                       onClick={() => setTrafficHorizon(h)}
-                      className={`py-1.5 text-xs font-semibold rounded-lg border transition-all ${
+                      className={`py-2 text-xs font-semibold rounded-xl border transition-all ${
                         trafficHorizon === h
-                          ? 'bg-teal-600 text-white border-teal-500'
-                          : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
+                          ? 'bg-teal-600 text-white border-teal-500 shadow-sm'
+                          : 'bg-slate-950/60 text-slate-400 border-slate-800/80 hover:text-white'
                       }`}
                     >
                       +{h}h
@@ -146,8 +177,9 @@ export const ForecastingPage: React.FC = () => {
               <button
                 onClick={handleTrafficForecast}
                 disabled={loading}
-                className="w-full mt-2 py-2 bg-teal-600 hover:bg-teal-500 text-white font-medium text-xs rounded-lg transition-colors shadow-sm disabled:opacity-50"
+                className="w-full mt-2 py-2.5 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-white font-semibold text-xs rounded-xl transition-all shadow-lg shadow-teal-500/20 disabled:opacity-50 flex items-center justify-center gap-1.5"
               >
+                <Zap className="w-3.5 h-3.5" />
                 {loading ? 'Evaluating Quantiles...' : 'Run Quantile Forecaster'}
               </button>
             </div>
@@ -156,38 +188,38 @@ export const ForecastingPage: React.FC = () => {
           {/* Results & Visualizer */}
           <div className="lg:col-span-2 space-y-4">
             {trafficForecast && (
-              <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-                <div className="flex items-center justify-between mb-4">
+              <div className="glass-panel rounded-2xl p-6 border border-slate-800/80 space-y-5">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
                   <div>
-                    <h3 className="text-sm font-bold text-white">Quantile Speed Distribution (90% Envelope)</h3>
-                    <p className="text-[11px] text-slate-400">Non-crossing monotonicity enforced across α=[0.05, 0.50, 0.95]</p>
+                    <h3 className="text-sm font-bold text-white tracking-tight">Quantile Speed Distribution (90% Envelope)</h3>
+                    <p className="text-[11px] text-slate-400 mt-0.5">Non-crossing monotonicity enforced across &alpha; = [0.05, 0.50, 0.95]</p>
                   </div>
-                  <span className="text-xs font-mono text-teal-400 bg-teal-950/60 px-2.5 py-1 rounded border border-teal-800/40">
+                  <span className="text-xs font-mono text-teal-400 bg-teal-950/60 px-3 py-1 rounded-full border border-teal-800/40 font-bold">
                     {trafficForecast.congestion_level}
                   </span>
                 </div>
 
                 {/* Quantile Interval Visual Card */}
-                <div className="bg-slate-950 p-6 rounded-xl border border-slate-800 space-y-4">
+                <div className="bg-slate-950/80 p-6 rounded-xl border border-slate-800/80 space-y-4">
                   <div className="flex justify-between items-baseline">
-                    <span className="text-xs text-slate-400 font-mono">Lower Bound (q0.05): {trafficForecast.quantile_05.toFixed(1)} mph</span>
-                    <span className="text-xl font-extrabold text-teal-400 font-mono">
+                    <span className="text-xs text-slate-400 font-mono">Lower (q0.05): <strong className="text-slate-200">{trafficForecast.quantile_05.toFixed(1)} mph</strong></span>
+                    <span className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-cyan-200 to-emerald-300 font-mono">
                       Median: {trafficForecast.predicted_speed_mph.toFixed(1)} mph
                     </span>
-                    <span className="text-xs text-slate-400 font-mono">Upper Bound (q0.95): {trafficForecast.quantile_95.toFixed(1)} mph</span>
+                    <span className="text-xs text-slate-400 font-mono">Upper (q0.95): <strong className="text-slate-200">{trafficForecast.quantile_95.toFixed(1)} mph</strong></span>
                   </div>
 
                   {/* Visual Confidence Bar */}
-                  <div className="relative w-full bg-slate-800 h-6 rounded-lg overflow-hidden flex items-center">
+                  <div className="relative w-full bg-slate-900 h-7 rounded-xl overflow-hidden flex items-center border border-slate-800">
                     <div
-                      className="absolute bg-teal-500/30 border-l-2 border-r-2 border-teal-400 h-full"
+                      className="absolute bg-teal-500/25 border-l-2 border-r-2 border-teal-400 h-full transition-all duration-300"
                       style={{
                         left: `${(trafficForecast.quantile_05 / 60) * 100}%`,
                         width: `${((trafficForecast.quantile_95 - trafficForecast.quantile_05) / 60) * 100}%`,
                       }}
                     />
                     <div
-                      className="absolute w-2 h-full bg-teal-400"
+                      className="absolute w-2 h-full bg-teal-400 shadow-md shadow-teal-400/50 transition-all duration-300"
                       style={{ left: `${(trafficForecast.predicted_speed_mph / 60) * 100}%` }}
                     />
                   </div>
@@ -199,26 +231,26 @@ export const ForecastingPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-                  <div className="bg-slate-950 p-3 rounded-lg border border-slate-800">
-                    <span className="text-slate-500 text-[10px] block uppercase font-mono">Prediction Horizon</span>
-                    <span className="font-bold text-white font-mono">+{trafficForecast.horizon_hours} Hour</span>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                  <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                    <span className="text-slate-500 text-[10px] block uppercase font-mono font-medium">Prediction Horizon</span>
+                    <span className="font-bold text-white font-mono text-sm mt-0.5 block">+{trafficForecast.horizon_hours} Hour</span>
                   </div>
-                  <div className="bg-slate-950 p-3 rounded-lg border border-slate-800">
-                    <span className="text-slate-500 text-[10px] block uppercase font-mono">Uncertainty Width</span>
-                    <span className="font-bold text-cyan-400 font-mono">
+                  <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                    <span className="text-slate-500 text-[10px] block uppercase font-mono font-medium">Uncertainty Width</span>
+                    <span className="font-bold text-cyan-400 font-mono text-sm mt-0.5 block">
                       {(trafficForecast.quantile_95 - trafficForecast.quantile_05).toFixed(1)} mph
                     </span>
                   </div>
-                  <div className="bg-slate-950 p-3 rounded-lg border border-slate-800">
-                    <span className="text-slate-500 text-[10px] block uppercase font-mono">Speed Differential</span>
-                    <span className="font-bold text-amber-400 font-mono">
+                  <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                    <span className="text-slate-500 text-[10px] block uppercase font-mono font-medium">Speed Differential</span>
+                    <span className="font-bold text-amber-400 font-mono text-sm mt-0.5 block">
                       {(trafficForecast.predicted_speed_mph - trafficCurrentSpeed).toFixed(1)} mph
                     </span>
                   </div>
-                  <div className="bg-slate-950 p-3 rounded-lg border border-slate-800">
-                    <span className="text-slate-500 text-[10px] block uppercase font-mono">Model Engine</span>
-                    <span className="font-bold text-slate-300 font-mono text-[11px] truncate block">LightGBM-v2.1</span>
+                  <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                    <span className="text-slate-500 text-[10px] block uppercase font-mono font-medium">Model Engine</span>
+                    <span className="font-bold text-slate-300 font-mono text-[11px] truncate mt-0.5 block">LightGBM-v2.1</span>
                   </div>
                 </div>
               </div>
@@ -233,19 +265,22 @@ export const ForecastingPage: React.FC = () => {
       ) : (
         /* AQI Forecasting Domain */
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
-            <h3 className="text-sm font-bold text-white">Atmospheric Forecaster Controls</h3>
+          <div className="glass-card rounded-2xl p-5 border border-slate-800/80 space-y-4">
+            <div className="flex items-center gap-2 mb-2 pb-2 border-b border-slate-800/80">
+              <Sliders className="w-4 h-4 text-cyan-400" />
+              <h3 className="text-sm font-bold text-white tracking-tight">Atmospheric Parameters</h3>
+            </div>
             <p className="text-[11px] text-slate-400">
               Select ambient sensor station and input parameters to predict 24h AQI and multi-pollutant vector.
             </p>
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-3.5 text-xs">
               <div>
-                <label className="text-slate-400 block text-[11px] mb-1">Station Sensor</label>
+                <label className="text-slate-400 block text-[11px] font-medium uppercase tracking-wider mb-1.5">Station Sensor</label>
                 <select
                   value={aqiStation}
                   onChange={(e) => setAqiStation(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-slate-200"
+                  className="w-full bg-slate-950/80 border border-slate-800/80 rounded-xl p-2.5 text-slate-200 focus:outline-none focus:border-cyan-500 transition-colors font-medium"
                 >
                   <option value="EPA_17031_0001">Cook County Central Station (EPA AQS)</option>
                   <option value="EPA_17031_0014">South Loop Air Monitoring Lab</option>
@@ -254,9 +289,9 @@ export const ForecastingPage: React.FC = () => {
               </div>
 
               <div>
-                <div className="flex justify-between text-slate-400 text-[11px] mb-1">
-                  <span>Current Baseline AQI</span>
-                  <span className="font-mono text-white">{aqiCurrent.toFixed(1)}</span>
+                <div className="flex justify-between text-slate-400 text-[11px] mb-1.5">
+                  <span className="font-medium uppercase tracking-wider">Current Baseline AQI</span>
+                  <span className="font-mono text-cyan-300 font-bold">{aqiCurrent.toFixed(1)}</span>
                 </div>
                 <input
                   type="range"
@@ -265,15 +300,16 @@ export const ForecastingPage: React.FC = () => {
                   step="1"
                   value={aqiCurrent}
                   onChange={(e) => setAqiCurrent(parseFloat(e.target.value))}
-                  className="w-full accent-teal-500"
+                  className="w-full accent-cyan-400 cursor-pointer"
                 />
               </div>
 
               <button
                 onClick={handleAqiForecast}
                 disabled={loading}
-                className="w-full mt-2 py-2 bg-teal-600 hover:bg-teal-500 text-white font-medium text-xs rounded-lg transition-colors shadow-sm disabled:opacity-50"
+                className="w-full mt-2 py-2.5 bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white font-semibold text-xs rounded-xl transition-all shadow-lg shadow-cyan-600/20 disabled:opacity-50 flex items-center justify-center gap-1.5"
               >
+                <Zap className="w-3.5 h-3.5" />
                 {loading ? 'Simulating Dispersion...' : 'Generate 24h AQI Forecast'}
               </button>
             </div>
@@ -281,36 +317,38 @@ export const ForecastingPage: React.FC = () => {
 
           <div className="lg:col-span-2 space-y-4">
             {aqiForecast && (
-              <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
-                <div className="flex items-center justify-between mb-4">
+              <div className="glass-panel rounded-2xl p-6 border border-slate-800/80 space-y-5">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
                   <div>
-                    <h3 className="text-sm font-bold text-white">24-Hour Multi-Pollutant Forecast</h3>
-                    <p className="text-[11px] text-slate-400">Predicted Air Quality Category: {aqiForecast.air_quality_category}</p>
+                    <h3 className="text-sm font-bold text-white tracking-tight">24-Hour Multi-Pollutant Forecast</h3>
+                    <p className="text-[11px] text-slate-400 mt-0.5">Predicted Air Quality Category: {aqiForecast.air_quality_category}</p>
                   </div>
-                  <span className="text-xs font-mono text-teal-400 bg-teal-950/60 px-2.5 py-1 rounded border border-teal-800/40">
+                  <span className="text-xs font-mono text-cyan-400 bg-cyan-950/60 px-3 py-1 rounded-full border border-cyan-800/40 font-bold">
                     Horizon: +24h
                   </span>
                 </div>
 
-                <div className="bg-slate-950 p-6 rounded-xl border border-slate-800 text-center space-y-2">
-                  <span className="text-xs text-slate-400 uppercase tracking-wider">Projected Metro AQI</span>
-                  <div className="text-4xl font-extrabold text-teal-400 font-mono">
+                <div className="bg-slate-950/80 p-6 rounded-xl border border-slate-800/80 text-center space-y-2 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-500 via-teal-400 to-indigo-500"></div>
+                  <span className="text-xs text-slate-400 uppercase tracking-wider font-medium">Projected Metro AQI</span>
+                  <div className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-200 to-emerald-300 font-mono">
                     {aqiForecast.predicted_aqi.toFixed(1)}
                   </div>
-                  <div className="text-xs font-mono text-cyan-400 bg-cyan-950/40 py-1 px-3 rounded-full border border-cyan-800/40 inline-block">
+                  <div className="text-xs font-mono text-cyan-300 bg-cyan-950/60 py-1 px-3 rounded-full border border-cyan-800/40 inline-flex items-center gap-1.5">
+                    <TrendingUp className="w-3 h-3 text-cyan-400" />
                     90% CI: [{aqiForecast.uncertainty_bounds[0].toFixed(1)}, {aqiForecast.uncertainty_bounds[1].toFixed(1)}]
                   </div>
                 </div>
 
-                <div className="mt-4">
-                  <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                    Pollutant Vector Concentration Estimates
+                <div>
+                  <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                    <Droplets className="w-3.5 h-3.5 text-cyan-400" /> Pollutant Vector Concentration Estimates
                   </h4>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
                     {Object.entries(aqiForecast.pollutant_breakdown).map(([k, v]) => (
-                      <div key={k} className="bg-slate-950 p-3 rounded-lg border border-slate-800">
-                        <span className="text-slate-500 uppercase font-mono text-[10px] block">{k}</span>
-                        <span className="font-bold text-white font-mono text-base">{v.toFixed(1)}</span>
+                      <div key={k} className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                        <span className="text-slate-400 uppercase font-mono text-[10px] block font-semibold">{k}</span>
+                        <span className="font-bold text-white font-mono text-base mt-0.5 block">{v.toFixed(1)}</span>
                         <span className="text-[10px] text-slate-500 block">µg/m³</span>
                       </div>
                     ))}
