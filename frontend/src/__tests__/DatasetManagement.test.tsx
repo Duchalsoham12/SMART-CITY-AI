@@ -1,9 +1,13 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { DatasetManagementPage } from '../pages/DatasetManagementPage';
 import { DatasetUploadModal } from '../components/datasets/DatasetUploadModal';
+import { setLiveMode } from '../services/apiClient';
 
 describe('Dataset Ingestion & Management Module', () => {
+  beforeEach(() => {
+    setLiveMode(false);
+  });
   it('renders DatasetManagementPage with KPIs and catalog table', async () => {
     render(<DatasetManagementPage />);
 
