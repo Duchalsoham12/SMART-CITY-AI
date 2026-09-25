@@ -16,6 +16,22 @@ SmartCityAI is a production-grade, enterprise-ready Urban Intelligence and Decis
 
 ---
 
+## 🌐 Localhost Access & Live Service Links
+
+When running the project locally, access the platform services directly via these links:
+
+| Service / Interface | Localhost Link | Alternative IP Link | Purpose |
+|---|---|---|---|
+| **🖥️ Frontend Web Application** | **[http://localhost:5173](http://localhost:5173)** | **[http://127.0.0.1:5173](http://127.0.0.1:5173)** | Interactive Dashboard, Leaflet Map, Quantile Forecaster & Assistant |
+| **📚 In-App Documentation Center** | **[http://localhost:5173](http://localhost:5173)** | **[http://127.0.0.1:5173](http://127.0.0.1:5173)** | User Manuals, FAQ, Role Paths & Hotkeys (Navigate to *User Guide & Docs* or press `?`) |
+| **⚡ Backend API Swagger Docs** | **[http://localhost:8000/docs](http://localhost:8000/docs)** | **[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)** | Interactive OpenAPI Swagger UI to execute and test API routes live |
+| **📖 Backend API ReDoc** | **[http://localhost:8000/redoc](http://localhost:8000/redoc)** | **[http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)** | Clean, formal API reference documentation |
+| **🩺 System Health Diagnostics** | **[http://localhost:8000/api/v1/health](http://localhost:8000/api/v1/health)** | **[http://127.0.0.1:8000/api/v1/health](http://127.0.0.1:8000/api/v1/health)** | Real-time database pool & ML model fleet readiness status |
+| **🚦 Live Traffic Telemetry & Forecasts** | **[http://localhost:8000/api/v1/traffic/speed](http://localhost:8000/api/v1/traffic/speed)** | **[http://127.0.0.1:8000/api/v1/traffic/speed](http://127.0.0.1:8000/api/v1/traffic/speed)** | Corridor speed monitoring and 90% quantile forecasts |
+| **🛡️ Safety & H3 Risk Hexagons** | **[http://localhost:8000/api/v1/safety/risk](http://localhost:8000/api/v1/safety/risk)** | **[http://127.0.0.1:8000/api/v1/safety/risk](http://127.0.0.1:8000/api/v1/safety/risk)** | Empirical Bayes smoothed crash hazard classifications |
+
+---
+
 ## 🏛️ System Overview & Architecture
 
 ```
@@ -144,10 +160,17 @@ npm run build
 npm run dev -- --host 127.0.0.1 --port 5173
 ```
 
-### 4. Access the Live Application
-* **Frontend Dashboard**: [http://127.0.0.1:5173](http://127.0.0.1:5173)
-* **Interactive API Swagger UI**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-* **Backend Health Diagnostics**: [http://127.0.0.1:8000/api/v1/health](http://127.0.0.1:8000/api/v1/health)
+### 4. Access the Live Application Locally
+
+Once both backend and frontend servers are launched:
+
+* 🖥️ **Frontend Dashboard**: Open **[http://localhost:5173](http://localhost:5173)** (or **[http://127.0.0.1:5173](http://127.0.0.1:5173)**)
+* ⚡ **Interactive API Swagger UI**: Open **[http://localhost:8000/docs](http://localhost:8000/docs)** (or **[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)**)
+* 📖 **ReDoc API Documentation**: Open **[http://localhost:8000/redoc](http://localhost:8000/redoc)**
+* 🩺 **Backend Health & Model Fleet**: Open **[http://localhost:8000/api/v1/health](http://localhost:8000/api/v1/health)**
+* 📚 **In-App Documentation & Guides**: Access via the sidebar (*User Guide & Docs*) or press **`?`** anywhere in the app
+
+> **Tip**: Inside the web dashboard, toggle between **Live API (Port 8000)** and **Offline Mock** directly from the top-right header at any time.
 
 ---
 
