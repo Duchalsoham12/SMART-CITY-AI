@@ -24,14 +24,14 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   onReset,
 }) => {
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
+    <div className="glass-panel border border-slate-800/80 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4">
       <div className="flex flex-1 min-w-[240px] items-center gap-3">
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder={searchPlaceholder}
-          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 transition-colors"
+          className="w-full bg-slate-950/80 border border-slate-800/80 rounded-xl px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors font-medium"
         />
       </div>
 
@@ -40,7 +40,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           <select
             value={selectedCategory || ''}
             onChange={(e) => onCategoryChange(e.target.value)}
-            className="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-teal-500"
+            className="bg-slate-950/80 border border-slate-800/80 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-blue-500 font-medium cursor-pointer"
           >
             <option value="">All Tiers / Categories</option>
             {categories.map((c) => (
@@ -52,13 +52,13 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         )}
 
         {timeWindow && onTimeWindowChange && (
-          <div className="flex bg-slate-950 border border-slate-800 rounded-lg p-0.5 text-xs">
+          <div className="flex bg-slate-950/80 border border-slate-800/80 rounded-xl p-0.5 text-xs">
             {['24h', '7d', '30d'].map((tw) => (
               <button
                 key={tw}
                 onClick={() => onTimeWindowChange(tw)}
-                className={`px-3 py-1 rounded-md text-xs font-medium transition-colors ${
-                  timeWindow === tw ? 'bg-teal-600 text-white' : 'text-slate-400 hover:text-white'
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-colors ${
+                  timeWindow === tw ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'
                 }`}
               >
                 {tw}

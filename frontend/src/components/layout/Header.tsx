@@ -114,7 +114,7 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="flex items-center gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-teal-400 font-bold bg-teal-500/10 px-2 py-0.5 rounded border border-teal-500/20">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-blue-400 font-bold bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">
               {currentMeta.category}
             </span>
             <span className="text-slate-600 text-xs">/</span>
@@ -132,7 +132,7 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="flex items-center gap-3">
         {/* Live UTC Digital Clock */}
         <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/60 border border-white/[0.08] text-[11px] font-mono text-slate-300">
-          <Clock className="w-3.5 h-3.5 text-teal-400" />
+          <Clock className="w-3.5 h-3.5 text-blue-400" />
           <span>{timeUtc || '00:00:00 UTC'}</span>
         </div>
 
@@ -140,7 +140,7 @@ export const Header: React.FC<HeaderProps> = ({
         {onOpenUpload && (
           <button
             onClick={onOpenUpload}
-            className="px-3 py-1.5 bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-500 hover:to-teal-400 text-white font-semibold rounded-xl text-xs transition-all shadow-md shadow-teal-950/50 flex items-center gap-1.5 active:scale-95"
+            className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold rounded-xl text-xs transition-all shadow-md shadow-blue-950/50 flex items-center gap-1.5 active:scale-95"
             title="Upload New Dataset Telemetry (CSV, XLSX, JSON)"
           >
             <Database className="w-3.5 h-3.5" />
@@ -152,10 +152,10 @@ export const Header: React.FC<HeaderProps> = ({
         {onOpenTour && (
           <button
             onClick={onOpenTour}
-            className="px-2.5 py-1.5 bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-white/[0.08] hover:border-teal-500/40 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5"
+            className="px-2.5 py-1.5 bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-white/[0.08] hover:border-blue-500/40 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5"
             title="Start Interactive Platform Tour"
           >
-            <Compass className="w-3.5 h-3.5 text-teal-400" />
+            <Compass className="w-3.5 h-3.5 text-blue-400" />
             <span className="hidden sm:inline">Tour</span>
           </button>
         )}
@@ -164,12 +164,12 @@ export const Header: React.FC<HeaderProps> = ({
         {onOpenHelp && (
           <button
             onClick={onOpenHelp}
-            className="px-2.5 py-1.5 bg-slate-900/80 hover:bg-slate-800 text-teal-300 border border-white/[0.08] hover:border-teal-500/40 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5"
+            className="px-2.5 py-1.5 bg-slate-900/80 hover:bg-slate-800 text-blue-300 border border-white/[0.08] hover:border-blue-500/40 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5"
             title="Open Help Center & Documentation (Shortcut: ?)"
           >
-            <HelpCircle className="w-3.5 h-3.5 text-teal-400" />
+            <HelpCircle className="w-3.5 h-3.5 text-blue-400" />
             <span className="hidden sm:inline">Help</span>
-            <span className="hidden md:inline text-[10px] text-teal-400/80 font-mono">(?)</span>
+            <span className="hidden md:inline text-[10px] text-blue-400/80 font-mono">(?)</span>
           </button>
         )}
 
@@ -179,7 +179,7 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => onToggleLiveApi(true)}
             className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all flex items-center gap-1.5 ${
               isLiveApi
-                ? 'bg-teal-600 text-white shadow-md shadow-teal-950/60'
+                ? 'bg-blue-600 text-white shadow-md shadow-blue-950/60'
                 : 'text-slate-400 hover:text-white'
             }`}
           >

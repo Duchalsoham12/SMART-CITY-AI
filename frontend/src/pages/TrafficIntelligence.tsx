@@ -68,15 +68,15 @@ export const TrafficIntelligence: React.FC = () => {
       {/* Top Banner */}
       <div className="glass-panel p-5 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-slate-800/80">
         <div className="flex items-start gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400 shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0">
             <Navigation className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-[11px] font-mono font-semibold text-teal-400 uppercase tracking-wider">
+              <span className="text-[11px] font-mono font-semibold text-blue-400 uppercase tracking-wider">
                 Corridor Telemetry &amp; Quantile Forecasting
               </span>
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-teal-500/10 text-teal-300 border border-teal-500/20">
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-blue-500/10 text-blue-300 border border-blue-500/20">
                 LightGBM Pinball
               </span>
             </div>
@@ -114,10 +114,10 @@ export const TrafficIntelligence: React.FC = () => {
           <div className="lg:col-span-2 glass-panel rounded-2xl overflow-hidden flex flex-col border border-slate-800/80">
             <div className="p-4 border-b border-slate-800/80 flex items-center justify-between bg-slate-950/40">
               <div className="flex items-center gap-2">
-                <Activity className="w-4 h-4 text-teal-400" />
+                <Activity className="w-4 h-4 text-blue-400" />
                 <h3 className="text-sm font-bold text-white tracking-tight">Live Segment Readings</h3>
               </div>
-              <span className="text-xs font-mono text-teal-400 bg-teal-950/60 px-2.5 py-0.5 rounded-full border border-teal-800/40">
+              <span className="text-xs font-mono text-blue-400 bg-blue-950/60 px-2.5 py-0.5 rounded-full border border-blue-800/40">
                 {records.length} segments reported
               </span>
             </div>
@@ -144,14 +144,14 @@ export const TrafficIntelligence: React.FC = () => {
                         onClick={() => handleSelectRecord(rec)}
                         className={`cursor-pointer transition-all duration-150 ${
                           isSelected
-                            ? 'bg-teal-500/10 text-white border-l-2 border-teal-400'
+                            ? 'bg-blue-500/10 text-white border-l-2 border-blue-500'
                             : 'hover:bg-slate-800/40'
                         }`}
                       >
                         <td className="py-3 px-4 font-mono text-slate-400 font-semibold">#{rec.segment_id}</td>
                         <td className="py-3 px-4 font-medium text-white flex items-center gap-1.5">
                           {rec.street_name}
-                          {isSelected && <ChevronRight className="w-3.5 h-3.5 text-teal-400 ml-auto" />}
+                          {isSelected && <ChevronRight className="w-3.5 h-3.5 text-blue-400 ml-auto" />}
                         </td>
                         <td className="py-3 px-4 font-bold font-mono text-slate-100">
                           {rec.speed_mph.toFixed(1)} <span className="text-[10px] font-normal text-slate-400">mph</span>
@@ -189,13 +189,13 @@ export const TrafficIntelligence: React.FC = () => {
             <div className="glass-card rounded-2xl p-5 border border-slate-800/80">
               <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-800/80">
                 <div className="flex items-center gap-2">
-                  <Gauge className="w-4 h-4 text-teal-400" />
+                  <Gauge className="w-4 h-4 text-blue-400" />
                   <span className="text-xs font-bold uppercase tracking-wider text-slate-300">
                     Corridor Speed Forecast
                   </span>
                 </div>
                 {forecasting && (
-                  <span className="text-xs text-teal-400 animate-pulse font-mono flex items-center gap-1">
+                  <span className="text-xs text-blue-400 animate-pulse font-mono flex items-center gap-1">
                     <Zap className="w-3 h-3" /> Inferring...
                   </span>
                 )}
@@ -222,7 +222,7 @@ export const TrafficIntelligence: React.FC = () => {
                       onClick={() => handleHorizonChange(h)}
                       className={`py-2 text-xs font-semibold rounded-xl border transition-all ${
                         horizon === h
-                          ? 'bg-gradient-to-r from-teal-500 to-emerald-600 text-white border-teal-400 shadow-lg shadow-teal-500/20'
+                          ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-500 shadow-lg shadow-blue-500/25'
                           : 'bg-slate-950/60 text-slate-400 border-slate-800/80 hover:text-white hover:border-slate-700'
                       }`}
                     >
@@ -236,11 +236,11 @@ export const TrafficIntelligence: React.FC = () => {
                 <div className="space-y-4">
                   {/* Gauge Display */}
                   <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800/80 text-center relative overflow-hidden">
-                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-500 via-cyan-400 to-indigo-500"></div>
+                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-indigo-500 to-sky-400"></div>
                     <span className="text-[11px] text-slate-400 uppercase tracking-wider font-medium">
                       Median Expected Velocity ($q_{0.50}$)
                     </span>
-                    <div className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-cyan-200 to-emerald-300 font-mono mt-1">
+                    <div className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-sky-200 to-indigo-200 font-mono mt-1">
                       {forecast.predicted_speed_mph.toFixed(1)} <span className="text-sm font-normal text-slate-400">mph</span>
                     </div>
                     <div className="mt-2 text-xs font-mono text-cyan-300 bg-cyan-950/60 py-1 px-3 rounded-full border border-cyan-800/40 inline-flex items-center gap-1.5">

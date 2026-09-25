@@ -44,11 +44,11 @@ export const ProductTour: React.FC<ProductTourProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="bg-slate-900 border border-teal-500/40 rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150 relative">
+      <div className="bg-slate-900 border border-blue-500/40 rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150 relative">
         {/* Step Progress Bar */}
         <div className="h-1 bg-slate-800 w-full">
           <div
-            className="h-full bg-teal-500 transition-all duration-300"
+            className="h-full bg-blue-500 transition-all duration-300"
             style={{ width: `${((currentStepIdx + 1) / ONBOARDING_TOUR_STEPS.length) * 100}%` }}
           />
         </div>
@@ -59,7 +59,7 @@ export const ProductTour: React.FC<ProductTourProps> = ({
             <div className="flex items-center gap-2">
               <span className="text-xl">{currentStep.icon}</span>
               <div>
-                <span className="text-[10px] font-mono tracking-widest text-teal-400 uppercase font-bold">
+                <span className="text-[10px] font-mono tracking-widest text-blue-400 uppercase font-bold">
                   Step {currentStep.step} of {ONBOARDING_TOUR_STEPS.length} • {currentStep.category}
                 </span>
                 <h3 className="text-base font-bold text-white tracking-tight">
@@ -85,7 +85,7 @@ export const ProductTour: React.FC<ProductTourProps> = ({
             </span>
             {currentStep.keyPoints.map((point, i) => (
               <div key={i} className="flex items-start gap-2 text-[11px] text-slate-300">
-                <span className="text-teal-400 text-xs leading-none mt-0.5">•</span>
+                <span className="text-blue-400 text-xs leading-none mt-0.5">•</span>
                 <span>{point}</span>
               </div>
             ))}
@@ -111,7 +111,7 @@ export const ProductTour: React.FC<ProductTourProps> = ({
               )}
               <button
                 onClick={handleNext}
-                className="px-4 py-1.5 rounded-lg text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 shadow-sm transition-colors flex items-center gap-1"
+                className="px-4 py-1.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-md shadow-blue-950/40 transition-all flex items-center gap-1"
               >
                 {isLast ? 'Complete Tour ✓' : 'Next Step →'}
               </button>

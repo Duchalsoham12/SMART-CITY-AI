@@ -45,15 +45,15 @@ export const SystemHealthPage: React.FC = () => {
       {/* Top Banner */}
       <div className="glass-panel p-5 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-slate-800/80">
         <div className="flex items-start gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400 shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0">
             <HeartPulse className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-[11px] font-mono font-semibold text-teal-400 uppercase tracking-wider">
+              <span className="text-[11px] font-mono font-semibold text-blue-400 uppercase tracking-wider">
                 Infrastructure &amp; Telemetry Diagnostics
               </span>
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-teal-500/10 text-teal-300 border border-teal-500/20">
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-blue-500/10 text-blue-300 border border-blue-500/20">
                 SLA 99.98%
               </span>
             </div>
@@ -72,9 +72,9 @@ export const SystemHealthPage: React.FC = () => {
           <button
             onClick={checkHealth}
             disabled={refreshing}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800/80 hover:bg-slate-700/80 text-teal-300 text-xs font-semibold rounded-xl transition-all border border-slate-700 disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 hover:text-white text-xs font-semibold rounded-xl transition-all border border-slate-700 disabled:opacity-50"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? 'animate-spin text-teal-400' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? 'animate-spin text-blue-400' : ''}`} />
             <span>Probe</span>
           </button>
         </div>
@@ -94,9 +94,9 @@ export const SystemHealthPage: React.FC = () => {
 
         <div className="glass-card rounded-2xl p-4 border border-slate-800/80">
           <span className="text-slate-400 uppercase font-mono text-[10px] block font-medium flex items-center gap-1.5">
-            <Server className="w-3.5 h-3.5 text-teal-400" /> Environment &amp; Build
+            <Server className="w-3.5 h-3.5 text-blue-400" /> Environment &amp; Build
           </span>
-          <span className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-cyan-200 to-emerald-300 font-mono mt-1.5 block">
+          <span className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-sky-200 to-indigo-200 font-mono mt-1.5 block">
             v{health.version}
           </span>
           <span className="text-[11px] text-slate-500 font-mono mt-1 block uppercase">
@@ -119,10 +119,10 @@ export const SystemHealthPage: React.FC = () => {
       <div className="glass-panel rounded-2xl overflow-hidden border border-slate-800/80 shadow-sm">
         <div className="p-4 border-b border-slate-800/80 flex items-center justify-between bg-slate-950/40">
           <div className="flex items-center gap-2">
-            <Cpu className="w-4 h-4 text-teal-400" />
+            <Cpu className="w-4 h-4 text-blue-400" />
             <h3 className="text-sm font-bold text-white tracking-tight">Component Fleet Diagnostics</h3>
           </div>
-          <span className="text-xs font-mono text-teal-400 bg-teal-950/60 px-3 py-0.5 rounded-full border border-teal-800/40 font-semibold">
+          <span className="text-xs font-mono text-blue-400 bg-blue-950/60 px-3 py-0.5 rounded-full border border-blue-800/40 font-semibold">
             {Object.keys(health.components).length} Subsystems Monitored
           </span>
         </div>

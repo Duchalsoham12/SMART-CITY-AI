@@ -77,7 +77,7 @@ export const HelpCenterModal: React.FC<HelpCenterModalProps> = ({
         {/* Modal Top Header */}
         <div className="bg-slate-900/90 border-b border-slate-800 p-4 px-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-teal-300 font-bold text-base shadow-sm">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-blue-300 font-bold text-base shadow-sm">
               ?
             </div>
             <div>
@@ -85,7 +85,7 @@ export const HelpCenterModal: React.FC<HelpCenterModalProps> = ({
                 <h2 className="text-sm font-bold text-white tracking-tight">
                   SmartCityAI Knowledge Base &amp; Help Center
                 </h2>
-                <span className="px-2 py-0.5 bg-teal-500/10 border border-teal-500/30 text-teal-400 text-[10px] font-mono rounded-full font-semibold">
+                <span className="px-2 py-0.5 bg-blue-500/10 border border-blue-500/30 text-blue-400 text-[10px] font-mono rounded-full font-semibold">
                   v1.0
                 </span>
               </div>
@@ -101,7 +101,7 @@ export const HelpCenterModal: React.FC<HelpCenterModalProps> = ({
                 onClose();
                 onStartTour();
               }}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-teal-600/20 hover:bg-teal-600/30 border border-teal-500/40 text-teal-300 text-xs font-medium rounded-lg transition-colors"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/40 text-blue-300 text-xs font-semibold rounded-lg transition-colors"
             >
               <span>🚀</span> Start Tour
             </button>
@@ -135,7 +135,7 @@ export const HelpCenterModal: React.FC<HelpCenterModalProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search help topics, metrics, formulas, or troubleshooting..."
-              className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-8 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-teal-500 transition-colors"
+              className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-8 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
             />
             {searchQuery && (
               <button
@@ -155,9 +155,9 @@ export const HelpCenterModal: React.FC<HelpCenterModalProps> = ({
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-2.5 py-1 rounded-lg text-[11px] font-medium whitespace-nowrap transition-colors flex items-center gap-1.5 ${
+                  className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 ${
                     active
-                      ? 'bg-teal-500 text-slate-950 font-bold shadow-sm'
+                      ? 'bg-blue-600 text-white shadow-sm'
                       : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800 hover:bg-slate-800'
                   }`}
                 >
@@ -188,21 +188,21 @@ export const HelpCenterModal: React.FC<HelpCenterModalProps> = ({
                     onClick={() => setSelectedArticleId(article.id)}
                     className={`w-full text-left p-3 rounded-xl transition-all border ${
                       isSelected
-                        ? 'bg-slate-800/90 border-teal-500/40 shadow-sm'
+                        ? 'bg-slate-800/90 border-blue-500/40 shadow-sm'
                         : 'bg-slate-900/40 border-slate-800/60 hover:bg-slate-800/40 hover:border-slate-700/60'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-sm">{article.icon}</span>
                       {article.badge && (
-                        <span className="text-[9px] font-mono font-semibold px-1.5 py-0.2 rounded bg-slate-800 text-teal-400 border border-slate-700">
+                        <span className="text-[9px] font-mono font-semibold px-1.5 py-0.2 rounded bg-slate-800 text-blue-400 border border-slate-700">
                           {article.badge}
                         </span>
                       )}
                     </div>
                     <h4
                       className={`text-xs font-semibold line-clamp-1 mb-1 ${
-                        isSelected ? 'text-teal-300' : 'text-slate-200'
+                        isSelected ? 'text-blue-300' : 'text-slate-200'
                       }`}
                     >
                       {article.title}
@@ -224,7 +224,7 @@ export const HelpCenterModal: React.FC<HelpCenterModalProps> = ({
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-2xl">{activeArticle.icon}</span>
                     <div>
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-teal-400">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-400">
                         {activeArticle.category.replace('-', ' ')}
                       </span>
                       <h3 className="text-lg font-bold text-white tracking-tight">
@@ -252,7 +252,7 @@ export const HelpCenterModal: React.FC<HelpCenterModalProps> = ({
                             : isIssue
                             ? 'bg-amber-950/20 border-amber-900/40 text-slate-200'
                             : isStep
-                            ? 'bg-slate-950/60 border-teal-900/30 text-slate-200'
+                            ? 'bg-slate-950/60 border-blue-900/30 text-slate-200'
                             : 'bg-slate-950/40 border-slate-800/80 text-slate-300'
                         }`}
                       >
@@ -264,13 +264,13 @@ export const HelpCenterModal: React.FC<HelpCenterModalProps> = ({
 
                 {/* Pro Tips Box */}
                 {activeArticle.tips && activeArticle.tips.length > 0 && (
-                  <div className="bg-teal-950/30 border border-teal-800/40 rounded-xl p-3.5 space-y-1.5">
-                    <span className="text-[11px] font-bold text-teal-400 flex items-center gap-1.5">
+                  <div className="bg-blue-950/30 border border-blue-800/40 rounded-xl p-3.5 space-y-1.5">
+                    <span className="text-[11px] font-bold text-blue-400 flex items-center gap-1.5">
                       <span>💡</span> Recommended Best Practice
                     </span>
                     {activeArticle.tips.map((tip, i) => (
-                      <p key={i} className="text-xs text-teal-200 leading-relaxed pl-4 relative">
-                        <span className="absolute left-0 top-0 text-teal-400">•</span>
+                      <p key={i} className="text-xs text-blue-200 leading-relaxed pl-4 relative">
+                        <span className="absolute left-0 top-0 text-blue-400">•</span>
                         {tip}
                       </p>
                     ))}

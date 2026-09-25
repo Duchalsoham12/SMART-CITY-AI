@@ -50,7 +50,7 @@ export const InfoPopover: React.FC<InfoPopoverProps> = ({
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         aria-label={`Learn more about ${def.term}`}
-        className={`${sizeClasses} rounded-full bg-slate-800 hover:bg-teal-500/20 text-slate-400 hover:text-teal-300 border border-slate-700 hover:border-teal-500/40 flex items-center justify-center font-bold font-serif transition-colors focus:outline-none focus:ring-1 focus:ring-teal-400`}
+        className={`${sizeClasses} rounded-full bg-slate-800 hover:bg-blue-500/20 text-slate-400 hover:text-blue-300 border border-slate-700 hover:border-blue-500/40 flex items-center justify-center font-bold font-serif transition-colors focus:outline-none focus:ring-1 focus:ring-blue-400`}
       >
         i
       </button>
@@ -59,7 +59,7 @@ export const InfoPopover: React.FC<InfoPopoverProps> = ({
         <div className="absolute z-50 left-1/2 -translate-x-1/2 bottom-full mb-2 w-72 p-3.5 bg-slate-900/95 border border-slate-700 rounded-xl shadow-2xl backdrop-blur-xl text-left animate-in fade-in zoom-in-95 duration-150">
           <div className="flex items-center justify-between border-b border-slate-800 pb-2 mb-2">
             <span className="text-xs font-bold text-white tracking-wide flex items-center gap-1.5">
-              <span className="text-teal-400 font-serif">ⓘ</span> {def.term}
+              <span className="text-blue-400 font-serif">ⓘ</span> {def.term}
             </span>
             <button
               onClick={() => setIsOpen(false)}

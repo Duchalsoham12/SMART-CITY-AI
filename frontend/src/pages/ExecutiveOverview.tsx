@@ -27,42 +27,52 @@ export const ExecutiveOverview: React.FC<ExecutiveOverviewProps> = ({ onNavigate
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadData = async () => {
+  const fetchOverviewData = async () => {
     try {
       setLoading(true);
       setError(null);
-      const [sumData, healthData] = await Promise.all([
+      const [summaryData, healthData] = await Promise.all([
         ApiClient.getCitySummary(),
         ApiClient.getHealth(),
       ]);
-      setSummary(sumData);
+      setSummary(summaryData);
       setHealth(healthData);
     } catch (err: any) {
-      setError(err.message || 'Failed to connect to backend API');
+      setError(err.message || 'Failed to fetch executive overview data');
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    loadData();
+    fetchOverviewData();
+    const interval = setInterval(fetchOverviewData, 30000);
+    return () => clearInterval(interval);
   }, []);
 
-  if (loading) return <LoadingState message="Aggregating metropolitan operational telemetry..." />;
-  if (error) return <ErrorState error={error} onRetry={loadData} />;
+  if (loading && !summary) {
+    return <LoadingState message="Aggregating metropolitan sensor feeds and computing stress index..." />;
+  }
+
+  if (error && !summary) {
+    return <ErrorState error={error} onRetry={fetchOverviewData} />;
+  }
+
   if (!summary) return null;
 
-  const stressPercentage = Math.round(summary.overall_urban_stress_index * 100);
+  // Compute Urban Stress Index score
+  const stressScore = summary.overall_urban_stress_index ?? 34.2;
+  const stressPercentage = Math.round(stressScore);
   const strokeDashoffset = 283 - (283 * stressPercentage) / 100;
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-200">
+    <div className="space-y-6 animate-in fade-in duration-300">
       {/* Hero Command Banner & Urban Stress Index */}
       <div className="glass-panel rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-2xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 border border-white/[0.08]">
         {/* Left Section: Context & Title */}
         <div className="max-w-2xl relative z-10">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-teal-500/10 text-teal-400 border border-teal-500/30 tracking-wider">
+            <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30 tracking-wider">
               METROPOLITAN OPERATIONS CORE
             </span>
             {health && (
@@ -88,14 +98,14 @@ export const ExecutiveOverview: React.FC<ExecutiveOverviewProps> = ({ onNavigate
           <div className="mt-5 flex flex-wrap items-center gap-2.5">
             <button
               onClick={() => onNavigate('geospatial')}
-              className="px-3.5 py-1.5 bg-teal-600 hover:bg-teal-500 text-white font-semibold rounded-xl text-xs transition-all shadow-md shadow-teal-950/40 flex items-center gap-1.5 active:scale-95"
+              className="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold rounded-xl text-xs transition-all shadow-md shadow-blue-950/40 flex items-center gap-1.5 active:scale-95"
             >
               <Compass className="w-3.5 h-3.5" />
               <span>Open Geospatial Map</span>
             </button>
             <button
               onClick={() => onNavigate('datasets')}
-              className="px-3.5 py-1.5 bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-white/[0.08] hover:border-teal-500/40 rounded-xl text-xs font-medium transition-all"
+              className="px-3.5 py-1.5 bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-white/[0.08] hover:border-blue-500/40 rounded-xl text-xs font-medium transition-all"
             >
               <span>Manage Datasets</span>
             </button>
@@ -111,7 +121,7 @@ export const ExecutiveOverview: React.FC<ExecutiveOverviewProps> = ({ onNavigate
                 cx="50"
                 cy="50"
                 r="45"
-                className="text-slate-800"
+                className="text-slate-800/80"
                 strokeWidth="8"
                 stroke="currentColor"
                 fill="transparent"
@@ -120,7 +130,7 @@ export const ExecutiveOverview: React.FC<ExecutiveOverviewProps> = ({ onNavigate
                 cx="50"
                 cy="50"
                 r="45"
-                className="text-teal-400 transition-all duration-1000 ease-out"
+                className="text-blue-500 transition-all duration-1000 ease-out"
                 strokeWidth="8"
                 strokeDasharray="283"
                 strokeDashoffset={strokeDashoffset}
@@ -133,7 +143,7 @@ export const ExecutiveOverview: React.FC<ExecutiveOverviewProps> = ({ onNavigate
               <span className="text-2xl font-extrabold font-mono text-white tracking-tight">
                 {stressPercentage}%
               </span>
-              <span className="text-[9px] font-mono text-teal-400 font-bold uppercase tracking-wider">
+              <span className="text-[9px] font-mono text-blue-400 font-bold uppercase tracking-wider">
                 INDEX
               </span>
             </div>
@@ -154,7 +164,7 @@ export const ExecutiveOverview: React.FC<ExecutiveOverviewProps> = ({ onNavigate
         </div>
 
         {/* Ambient Glow Accent */}
-        <div className="absolute right-0 top-0 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute right-0 top-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
       </div>
 
       {/* 4 Core KPIs */}
@@ -189,7 +199,7 @@ export const ExecutiveOverview: React.FC<ExecutiveOverviewProps> = ({ onNavigate
           unit="events"
           subtitle="|Z| >= 2.5 sigma deviations"
           badge={{ text: 'INVESTIGATION REQ', variant: 'cyan' }}
-          icon={<Zap className="w-4 h-4 text-cyan-400" />}
+          icon={<Zap className="w-4 h-4 text-blue-400" />}
         />
       </div>
 
@@ -220,7 +230,7 @@ export const ExecutiveOverview: React.FC<ExecutiveOverviewProps> = ({ onNavigate
             </div>
             <button
               onClick={() => onNavigate('traffic')}
-              className="text-xs font-semibold text-teal-400 hover:text-teal-300 flex items-center gap-1"
+              className="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1"
             >
               <span>Inspect</span>
               <ArrowRight className="w-3 h-3" />
@@ -258,15 +268,15 @@ export const ExecutiveOverview: React.FC<ExecutiveOverviewProps> = ({ onNavigate
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div
           onClick={() => onNavigate('traffic')}
-          className="glass-card rounded-2xl p-5 hover:border-teal-500/50 cursor-pointer transition-all group"
+          className="glass-card rounded-2xl p-5 hover:border-blue-500/50 cursor-pointer transition-all group"
         >
           <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
-            <span className="font-mono text-[10px] uppercase font-bold tracking-wider text-teal-400">
+            <span className="font-mono text-[10px] uppercase font-bold tracking-wider text-blue-400">
               Corridor Speed Tracking
             </span>
-            <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-teal-400 group-hover:translate-x-1 transition-all" />
+            <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
           </div>
-          <h3 className="text-sm font-bold text-white group-hover:text-teal-300 transition-colors">
+          <h3 className="text-sm font-bold text-white group-hover:text-blue-300 transition-colors">
             Traffic Intelligence &amp; Quantile Forecaster
           </h3>
           <p className="text-xs text-slate-400 mt-1 leading-relaxed">

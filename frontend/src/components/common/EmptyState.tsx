@@ -27,8 +27,8 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   helpLink,
 }) => {
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-10 text-center flex flex-col items-center justify-center max-w-xl mx-auto shadow-sm">
-      <div className="w-14 h-14 bg-slate-800/80 text-teal-400 border border-slate-700/80 rounded-2xl flex items-center justify-center mb-4 text-2xl font-bold shadow-inner">
+    <div className="glass-panel border border-slate-800/80 rounded-2xl p-10 text-center flex flex-col items-center justify-center max-w-xl mx-auto shadow-sm">
+      <div className="w-14 h-14 bg-slate-800/80 text-blue-400 border border-slate-700/80 rounded-2xl flex items-center justify-center mb-4 text-2xl font-bold shadow-inner">
         {icon}
       </div>
       <h3 className="text-base font-semibold text-white tracking-tight">{title}</h3>
@@ -39,7 +39,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         {onAction && actionLabel && (
           <button
             onClick={onAction}
-            className="px-4 py-2 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold rounded-lg transition-colors shadow-sm"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-xl transition-all shadow-md shadow-blue-950/40"
           >
             {actionLabel}
           </button>
@@ -48,7 +48,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         {onReset && (
           <button
             onClick={onReset}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-teal-300 text-xs font-medium rounded-lg transition-colors border border-slate-700"
+            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-blue-300 text-xs font-medium rounded-xl transition-colors border border-slate-700"
           >
             Clear Filters
           </button>
@@ -57,7 +57,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         {onSecondaryAction && secondaryActionLabel && (
           <button
             onClick={onSecondaryAction}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium rounded-lg transition-colors"
+            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium rounded-xl transition-colors"
           >
             {secondaryActionLabel}
           </button>
@@ -67,7 +67,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
       {helpLink && (
         <button
           onClick={helpLink.onClick}
-          className="mt-4 text-[11px] text-slate-500 hover:text-teal-400 underline transition-colors"
+          className="mt-4 text-[11px] text-slate-500 hover:text-blue-400 underline transition-colors"
         >
           {helpLink.label}
         </button>

@@ -148,7 +148,7 @@ export const AnomalyDetectionPage: React.FC = () => {
               <div>
                 <div className="flex justify-between text-slate-400 text-[11px] mb-1.5">
                   <span className="font-medium uppercase tracking-wider">Expected Baseline Speed</span>
-                  <span className="font-mono text-teal-300 font-bold">{simExpected.toFixed(1)} mph</span>
+                  <span className="font-mono text-blue-300 font-bold">{simExpected.toFixed(1)} mph</span>
                 </div>
                 <input
                   type="range"
@@ -157,7 +157,7 @@ export const AnomalyDetectionPage: React.FC = () => {
                   step="0.5"
                   value={simExpected}
                   onChange={(e) => setSimExpected(parseFloat(e.target.value))}
-                  className="w-full accent-teal-400 cursor-pointer"
+                  className="w-full accent-blue-500 cursor-pointer"
                 />
               </div>
 

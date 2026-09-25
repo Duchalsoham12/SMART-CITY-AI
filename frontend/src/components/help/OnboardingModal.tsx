@@ -26,13 +26,13 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="bg-slate-900 border border-slate-700/80 rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header Hero Banner */}
-        <div className="bg-gradient-to-r from-teal-900/60 via-slate-900 to-indigo-900/60 p-6 border-b border-slate-800 relative">
+        <div className="bg-gradient-to-r from-blue-900/60 via-slate-900 to-indigo-900/60 p-6 border-b border-slate-800 relative">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-teal-500/20 border border-teal-400/40 flex items-center justify-center text-teal-300 font-bold text-lg shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-300 font-bold text-lg shadow-sm">
               🏙️
             </div>
             <div>
-              <span className="text-[11px] font-mono tracking-widest text-teal-400 uppercase font-semibold">
+              <span className="text-[11px] font-mono tracking-widest text-blue-400 uppercase font-semibold">
                 Welcome to SmartCityAI
               </span>
               <h2 className="text-xl font-bold text-white tracking-tight">
@@ -59,7 +59,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
             <div className="p-3 bg-slate-950/60 border border-slate-800 rounded-xl space-y-1">
-              <span className="font-bold text-teal-400 flex items-center gap-1.5 text-[11px]">
+              <span className="font-bold text-blue-400 flex items-center gap-1.5 text-[11px]">
                 <span>🚦</span> What It Does
               </span>
               <p className="text-[11px] text-slate-400">
@@ -95,9 +95,9 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
             </div>
           </div>
 
-          <div className="p-3 bg-teal-950/30 border border-teal-800/40 rounded-xl flex items-start gap-2.5">
-            <span className="text-teal-400 text-sm mt-0.5">ⓘ</span>
-            <p className="text-[11px] text-teal-200">
+          <div className="p-3 bg-blue-950/30 border border-blue-800/40 rounded-xl flex items-start gap-2.5">
+            <span className="text-blue-400 text-sm mt-0.5">ⓘ</span>
+            <p className="text-[11px] text-blue-200">
               <strong>Epistemic Principle:</strong> Observed data reflects verified empirical history. Predictions reflect probabilistic estimations. Recommendations represent advisory options awaiting human authorization.
             </p>
           </div>
@@ -118,7 +118,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 handleDismiss(true);
                 onOpenGuide();
               }}
-              className="px-3.5 py-2 rounded-lg text-xs font-medium text-slate-300 bg-slate-800 hover:bg-slate-700 transition-colors border border-slate-700"
+              className="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-300 bg-slate-800 hover:bg-slate-700 transition-colors border border-slate-700"
             >
               📚 Read User Guide
             </button>
@@ -127,7 +127,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 handleDismiss(true);
                 onStartTour();
               }}
-              className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-teal-600 hover:bg-teal-500 shadow-md shadow-teal-950/50 transition-colors flex items-center gap-1.5"
+              className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-md shadow-blue-950/50 transition-all flex items-center gap-1.5"
             >
               <span>🧭</span> Take a Quick Tour
             </button>

@@ -86,8 +86,8 @@ export const EnvironmentalIntelligence: React.FC = () => {
           </div>
         </div>
         <div className="text-right font-mono text-xs text-slate-400 shrink-0 bg-slate-950/60 px-3.5 py-2 rounded-xl border border-slate-800/80">
-          <div className="text-slate-300">Observed Range: <span className="font-bold text-teal-300">24.0 – 118.0 AQI</span></div>
-          <div className="text-teal-400 text-[11px] mt-0.5">8 Continuous Stations Active</div>
+          <div className="text-slate-300">Observed Range: <span className="font-bold text-blue-300">24.0 – 118.0 AQI</span></div>
+          <div className="text-blue-400 text-[11px] mt-0.5">8 Continuous Stations Active</div>
         </div>
       </div>
 
@@ -178,9 +178,9 @@ export const EnvironmentalIntelligence: React.FC = () => {
             {forecast ? (
               <div className="space-y-4">
                 <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800/80 text-center relative overflow-hidden">
-                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-500 via-teal-400 to-indigo-500"></div>
+                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-indigo-500 to-sky-400"></div>
                   <span className="text-[11px] text-slate-400 uppercase tracking-wider font-medium">Projected 24h Index Value</span>
-                  <div className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-200 to-emerald-300 font-mono mt-1">
+                  <div className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-sky-200 to-indigo-200 font-mono mt-1">
                     {forecast.predicted_aqi.toFixed(1)}
                   </div>
                   <div className="mt-2 text-xs font-mono text-cyan-300 bg-cyan-950/60 py-1 px-3 rounded-full border border-cyan-800/40 inline-flex items-center gap-1.5">

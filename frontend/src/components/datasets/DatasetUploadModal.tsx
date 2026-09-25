@@ -54,20 +54,15 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
   };
 
   const handleLoadSampleDataset = () => {
-    // Generate a synthetic sample CSV file
     const sampleCsv = `segment_id,street_name,speed,start_latitude,start_longitude,observation_time_utc
 101,Michigan Ave & Wacker Dr,24.5,41.8885,-87.6243,2026-09-25T14:00:00Z
 102,Wacker Dr & Clark St,18.2,41.8890,-87.6250,2026-09-25T14:05:00Z
-103,State St & Madison St,14.8,41.8820,-87.6275,2026-09-25T14:10:00Z
-104,Ashland Ave & Division St,29.4,41.9030,-87.6670,2026-09-25T14:15:00Z
-105,Halsted St & Roosevelt Rd,22.1,41.8670,-87.6470,2026-09-25T14:20:00Z
-106,Western Ave & Belmont Ave,31.0,41.9390,-87.6870,2026-09-25T14:25:00Z
-107,Loop Expressway Corridor,45.2,41.8850,-87.6350,2026-09-25T14:30:00Z
-108,Corrupted Sensor Node,-5.0,999.0,-87.6240,2026-09-25T14:35:00Z`;
+103,State St & Madison St,11.4,41.8820,-87.6278,2026-09-25T14:10:00Z
+104,Dearborn St & Adams St,28.0,41.8795,-87.6295,2026-09-25T14:15:00Z
+105,Halsted St & Fulton St,15.8,41.8867,-87.6472,2026-09-25T14:20:00Z`;
 
     const blob = new Blob([sampleCsv], { type: 'text/csv' });
-    const sampleFile = new File([blob], 'chicago_telemetry_stream.csv', { type: 'text/csv' });
-    setCustomName('chicago_telemetry_sample');
+    const sampleFile = new File([blob], 'chicago_sample_telemetry.csv', { type: 'text/csv' });
     handleFileChange(sampleFile);
   };
 
@@ -80,16 +75,16 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
     try {
       const formData = new FormData();
       formData.append('file', file);
+      formData.append('dataset_name', customName);
       formData.append('category', category);
-      if (customName) formData.append('custom_name', customName);
-      formData.append('column_mapping_json', JSON.stringify(customMappings));
+      formData.append('column_mapping', JSON.stringify(customMappings));
 
-      const res = await apiClient.uploadDataset(formData);
-      setUploadResult(res);
+      const result = await apiClient.uploadDataset(formData);
+      setUploadResult(result);
       setStep('result');
       onUploadSuccess();
     } catch (err: any) {
-      setErrorMsg(err.message || 'Dataset preflight validation failed.');
+      setErrorMsg(err.message || 'Preflight upload validation failed.');
       setStep('mapping');
     } finally {
       setIsLoading(false);
@@ -101,7 +96,6 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
     setStep('upload');
     setUploadResult(null);
     setErrorMsg(null);
-    setCustomName('');
   };
 
   return (
@@ -110,13 +104,13 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
         {/* Top Header */}
         <div className="bg-slate-900/90 border-b border-slate-800 p-4 px-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-teal-300 font-bold text-base shadow-sm">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-blue-300 font-bold text-base shadow-sm">
               📁
             </div>
             <div>
               <h2 className="text-sm font-bold text-white tracking-tight flex items-center gap-2">
                 Dataset Ingestion &amp; Preflight Validation
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/30">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/30">
                   Gate v1.0
                 </span>
               </h2>
@@ -163,7 +157,7 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
                       onClick={() => setCategory(cat.id)}
                       className={`p-3 rounded-xl border text-xs font-medium flex flex-col items-center gap-1.5 transition-all ${
                         category === cat.id
-                          ? 'bg-teal-600/20 border-teal-500 text-white font-bold shadow-sm'
+                          ? 'bg-blue-600/20 border-blue-500 text-white font-bold shadow-sm'
                           : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:bg-slate-800/60 hover:text-slate-200'
                       }`}
                     >
@@ -176,7 +170,7 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
 
               {/* Drag & Drop File Zone */}
               <div
-                className="border-2 border-dashed border-slate-700 hover:border-teal-500/60 bg-slate-950/40 rounded-2xl p-8 text-center transition-colors cursor-pointer group"
+                className="border-2 border-dashed border-slate-700 hover:border-blue-500/60 bg-slate-950/40 rounded-2xl p-8 text-center transition-colors cursor-pointer group"
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => {
                   e.preventDefault();
@@ -196,7 +190,7 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
                   input.click();
                 }}
               >
-                <div className="w-12 h-12 rounded-2xl bg-teal-500/10 border border-teal-500/20 group-hover:bg-teal-500/20 flex items-center justify-center text-teal-400 text-2xl mx-auto mb-3 transition-colors">
+                <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 group-hover:bg-blue-500/20 flex items-center justify-center text-blue-400 text-2xl mx-auto mb-3 transition-colors">
                   📤
                 </div>
                 <h3 className="text-sm font-semibold text-white">
@@ -226,7 +220,7 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
                 <button
                   type="button"
                   onClick={handleLoadSampleDataset}
-                  className="px-3.5 py-1.5 bg-teal-600/30 hover:bg-teal-600/40 text-teal-300 border border-teal-500/40 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap"
+                  className="px-3.5 py-1.5 bg-blue-600/30 hover:bg-blue-600/40 text-blue-300 border border-blue-500/40 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap"
                 >
                   Load Sample Stream
                 </button>
@@ -264,7 +258,7 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
                   type="text"
                   value={customName}
                   onChange={(e) => setCustomName(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ''))}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-teal-500"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-blue-500"
                   placeholder="e.g. rush_hour_arterial_speeds"
                 />
               </div>
@@ -301,7 +295,7 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
                                 [m.source_column]: e.target.value,
                               })
                             }
-                            className="bg-slate-900 border border-slate-700 text-teal-300 text-xs rounded-lg px-2.5 py-1 focus:outline-none focus:border-teal-400"
+                            className="bg-slate-900 border border-slate-700 text-blue-300 text-xs rounded-lg px-2.5 py-1 focus:outline-none focus:border-blue-400"
                           >
                             <option value="speed">speed (Speed in mph)</option>
                             <option value="observation_time_utc">observation_time_utc (Timestamp)</option>
@@ -333,7 +327,7 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
                   type="button"
                   onClick={handleExecuteUpload}
                   disabled={isLoading}
-                  className="px-5 py-2 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold rounded-xl transition-colors shadow-lg shadow-teal-900/30 flex items-center gap-2"
+                  className="px-5 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold rounded-xl transition-all shadow-lg shadow-blue-950/40 flex items-center gap-2"
                 >
                   <span>🚀</span> Run Preflight Validation Gate
                 </button>
@@ -344,7 +338,7 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
           {/* STEP 3: VALIDATING ANIMATION */}
           {step === 'validating' && (
             <div className="py-16 text-center space-y-4">
-              <div className="w-12 h-12 border-3 border-teal-500 border-t-transparent rounded-full animate-spin mx-auto" />
+              <div className="w-12 h-12 border-3 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
               <h3 className="text-sm font-bold text-white tracking-tight">
                 Executing Preflight Data Quality Audit...
               </h3>
@@ -358,10 +352,10 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
           {step === 'result' && uploadResult && (
             <div className="space-y-6">
               {/* Success Banner */}
-              <div className="p-4 bg-teal-950/40 border border-teal-500/40 rounded-2xl flex items-start gap-3">
+              <div className="p-4 bg-blue-950/40 border border-blue-500/40 rounded-2xl flex items-start gap-3">
                 <span className="text-2xl mt-0.5">✅</span>
                 <div className="flex-1">
-                  <h3 className="text-xs font-bold text-teal-300">
+                  <h3 className="text-xs font-bold text-blue-300">
                     Dataset Registered Successfully
                   </h3>
                   <p className="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
@@ -384,7 +378,7 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
                   <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
                     Completeness
                   </span>
-                  <div className="text-lg font-bold text-teal-300 font-mono mt-0.5">
+                  <div className="text-lg font-bold text-blue-300 font-mono mt-0.5">
                     {uploadResult.quality_report.completeness_score}%
                   </div>
                   <span className="text-[9px] text-slate-500">Target &ge; 95%</span>
@@ -480,7 +474,7 @@ export const DatasetUploadModal: React.FC<DatasetUploadModalProps> = ({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-5 py-2 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold rounded-xl transition-colors shadow-lg shadow-teal-900/30"
+                  className="px-5 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold rounded-xl transition-all shadow-lg shadow-blue-950/40"
                 >
                   Done &amp; View Catalog
                 </button>

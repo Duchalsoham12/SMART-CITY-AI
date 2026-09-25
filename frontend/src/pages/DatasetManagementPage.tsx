@@ -74,10 +74,10 @@ export const DatasetManagementPage: React.FC<DatasetManagementPageProps> = () =>
   return (
     <div className="space-y-8 animate-in fade-in duration-200">
       {/* Hero Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-teal-950/40 to-slate-900 border border-teal-500/30 rounded-3xl p-8 relative overflow-hidden shadow-2xl">
+      <div className="bg-gradient-to-r from-slate-900 via-blue-950/30 to-slate-900 border border-blue-500/30 rounded-3xl p-8 relative overflow-hidden shadow-2xl">
         <div className="relative z-10 max-w-3xl">
           <div className="flex items-center gap-2 mb-3">
-            <span className="px-2.5 py-1 bg-teal-500/10 border border-teal-500/30 text-teal-400 font-mono text-xs rounded-full font-bold">
+            <span className="px-2.5 py-1 bg-blue-500/10 border border-blue-500/30 text-blue-400 font-mono text-xs rounded-full font-bold">
               📁 Ingestion &amp; Data Lineage
             </span>
             <span className="text-slate-500 text-xs font-mono">&bull; SHA-256 Version Manifests</span>
@@ -95,7 +95,7 @@ export const DatasetManagementPage: React.FC<DatasetManagementPageProps> = () =>
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <button
               onClick={() => setIsUploadOpen(true)}
-              className="px-5 py-2.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold rounded-xl transition-colors flex items-center gap-2 shadow-lg shadow-teal-900/30"
+              className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-xl transition-colors flex items-center gap-2 shadow-lg shadow-blue-900/30"
             >
               <span>+</span> Upload New Dataset
             </button>
@@ -109,30 +109,30 @@ export const DatasetManagementPage: React.FC<DatasetManagementPageProps> = () =>
         </div>
 
         {/* Decorative Background Accent */}
-        <div className="absolute right-0 bottom-0 translate-x-12 translate-y-12 w-64 h-64 bg-teal-500/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute right-0 bottom-0 translate-x-12 translate-y-12 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
       </div>
 
       {/* Top 4 KPI Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="glass-card rounded-2xl p-5 shadow-sm hover:border-teal-500/40 transition-all">
+        <div className="glass-card rounded-2xl p-5 shadow-sm hover:border-blue-500/40 transition-all">
           <div className="flex items-center justify-between text-slate-400 text-xs font-medium mb-1">
             <span className="text-[10px] font-mono font-bold uppercase tracking-wider">Registered Catalogs</span>
-            <span className="p-1.5 rounded-lg bg-teal-500/10 text-teal-400 border border-teal-500/20 text-xs font-mono">
+            <span className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-mono">
               CATALOG
             </span>
           </div>
           <div className="text-3xl font-extrabold text-white font-mono">{datasets.length}</div>
-          <span className="text-[11px] text-teal-400 mt-1 block font-medium">Active Ingest Streams</span>
+          <span className="text-[11px] text-blue-400 mt-1 block font-medium">Active Ingest Streams</span>
         </div>
 
-        <div className="glass-card rounded-2xl p-5 shadow-sm hover:border-teal-500/40 transition-all">
+        <div className="glass-card rounded-2xl p-5 shadow-sm hover:border-blue-500/40 transition-all">
           <div className="flex items-center justify-between text-slate-400 text-xs font-medium mb-1">
             <span className="text-[10px] font-mono font-bold uppercase tracking-wider">Verified Records</span>
-            <span className="p-1.5 rounded-lg bg-teal-500/10 text-teal-400 border border-teal-500/20 text-xs font-mono">
+            <span className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-mono">
               ROWS
             </span>
           </div>
-          <div className="text-3xl font-extrabold text-teal-300 font-mono">
+          <div className="text-3xl font-extrabold text-blue-300 font-mono">
             {totalRecords.toLocaleString()}
           </div>
           <span className="text-[11px] text-slate-400 mt-1 block font-medium">PostgreSQL Analytical Rows</span>
@@ -178,7 +178,7 @@ export const DatasetManagementPage: React.FC<DatasetManagementPageProps> = () =>
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3 py-1.5 rounded-xl font-medium whitespace-nowrap transition-colors ${
                   selectedCategory === cat.id
-                    ? 'bg-teal-500 text-slate-950 font-bold shadow-md'
+                    ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-600/25'
                     : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
                 }`}
               >
@@ -194,7 +194,7 @@ export const DatasetManagementPage: React.FC<DatasetManagementPageProps> = () =>
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search datasets or columns..."
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-8 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-teal-500 transition-colors"
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-8 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
             />
             {searchQuery && (
               <button
@@ -225,7 +225,7 @@ export const DatasetManagementPage: React.FC<DatasetManagementPageProps> = () =>
               {isLoading ? (
                 <tr>
                   <td colSpan={7} className="p-10 text-center text-slate-500">
-                    <div className="w-8 h-8 border-2 border-teal-500 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+                    <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
                     Loading registered datasets...
                   </td>
                 </tr>
@@ -253,7 +253,7 @@ export const DatasetManagementPage: React.FC<DatasetManagementPageProps> = () =>
                             ? 'bg-rose-500/10 text-rose-400 border border-rose-500/30'
                             : ds.category === 'air_quality'
                             ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/30'
-                            : 'bg-teal-500/10 text-teal-400 border border-teal-500/30'
+                            : 'bg-blue-500/10 text-blue-400 border border-blue-500/30'
                         }`}
                       >
                         {ds.category}
@@ -272,11 +272,11 @@ export const DatasetManagementPage: React.FC<DatasetManagementPageProps> = () =>
                       <div className="flex items-center gap-2">
                         <div className="w-16 h-2 bg-slate-800 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-teal-400"
+                            className="h-full bg-emerald-400"
                             style={{ width: `${Math.min(100, ds.quality_score)}%` }}
                           />
                         </div>
-                        <span className="font-mono text-[11px] text-teal-300 font-bold">
+                        <span className="font-mono text-[11px] text-emerald-400 font-bold">
                           {ds.quality_score}%
                         </span>
                       </div>
@@ -287,7 +287,7 @@ export const DatasetManagementPage: React.FC<DatasetManagementPageProps> = () =>
                     <td className="p-4 text-right px-6">
                       <button
                         onClick={() => handleInspectSample(ds.dataset_name)}
-                        className="px-3 py-1.5 bg-slate-800 hover:bg-teal-600/30 text-teal-300 hover:text-teal-200 border border-slate-700 hover:border-teal-500/40 text-xs font-medium rounded-lg transition-colors inline-flex items-center gap-1.5"
+                        className="px-3 py-1.5 bg-slate-800 hover:bg-blue-600/20 text-slate-200 hover:text-white border border-slate-700 hover:border-blue-500/40 text-xs font-medium rounded-lg transition-colors inline-flex items-center gap-1.5"
                       >
                         <span>👁️</span> Inspect Sample
                       </button>
@@ -302,13 +302,13 @@ export const DatasetManagementPage: React.FC<DatasetManagementPageProps> = () =>
 
       {/* Epistemic Notice & Preflight Architecture Standard */}
       <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 flex items-start gap-3">
-        <span className="text-teal-400 text-lg mt-0.5">⚖️</span>
+        <span className="text-blue-400 text-lg mt-0.5">⚖️</span>
         <div className="space-y-1">
           <h4 className="text-xs font-bold text-white tracking-tight">
             Data Quality &amp; Zero-Silent-Deletion Policy
           </h4>
           <p className="text-[11px] text-slate-400 leading-relaxed">
-            SmartCityAI enforces four rigorous quality dimensions: <strong>Completeness (&ge;95%)</strong>, <strong>Validity (&ge;98%)</strong>, <strong>Uniqueness (&ge;99%)</strong>, and <strong>Consistency (&ge;90%)</strong>. Telemetry with sensor anomalies or physical bounding violations is strictly quarantined to <code className="text-teal-300">data/quarantine/</code> for forensic auditing rather than being silently dropped.
+            SmartCityAI enforces four rigorous quality dimensions: <strong>Completeness (&ge;95%)</strong>, <strong>Validity (&ge;98%)</strong>, <strong>Uniqueness (&ge;99%)</strong>, and <strong>Consistency (&ge;90%)</strong>. Telemetry with sensor anomalies or physical bounding violations is strictly quarantined to <code className="text-blue-300">data/quarantine/</code> for forensic auditing rather than being silently dropped.
           </p>
         </div>
       </div>
@@ -321,7 +321,7 @@ export const DatasetManagementPage: React.FC<DatasetManagementPageProps> = () =>
               <div className="flex items-center gap-2">
                 <span className="text-lg">👁️</span>
                 <h3 className="text-xs font-bold text-white tracking-tight">
-                  Sample Preview: <span className="text-teal-300 font-mono">{inspectingDataset}</span>
+                  Sample Preview: <span className="text-blue-300 font-mono">{inspectingDataset}</span>
                 </h3>
               </div>
               <button
@@ -335,7 +335,7 @@ export const DatasetManagementPage: React.FC<DatasetManagementPageProps> = () =>
             <div className="flex-1 overflow-auto p-4">
               {isLoadingSample ? (
                 <div className="py-12 text-center text-slate-500 text-xs">
-                  <div className="w-8 h-8 border-2 border-teal-500 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+                  <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
                   Loading verified sample records...
                 </div>
               ) : sampleRows.length === 0 ? (

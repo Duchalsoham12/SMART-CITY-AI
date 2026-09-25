@@ -31,7 +31,7 @@ export const ErrorGuidance: React.FC<ErrorGuidanceProps> = ({
 
   return (
     <div
-      className={`bg-slate-900 border border-rose-900/60 rounded-2xl p-6 shadow-xl text-left ${className}`}
+      className={`glass-panel border border-rose-900/60 rounded-2xl p-6 shadow-xl text-left ${className}`}
     >
       <div className="flex items-start gap-4">
         <div className="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 font-bold text-lg shrink-0">
@@ -92,7 +92,7 @@ export const ErrorGuidance: React.FC<ErrorGuidanceProps> = ({
             {onRetry && (
               <button
                 onClick={onRetry}
-                className="px-3 py-1.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold rounded-lg transition-colors flex items-center gap-1.5 shadow-sm"
+                className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-xl transition-all flex items-center gap-1.5 shadow-md shadow-blue-950/40"
               >
                 <span>🔄</span> Retry Request
               </button>
@@ -101,7 +101,7 @@ export const ErrorGuidance: React.FC<ErrorGuidanceProps> = ({
             {onSwitchToMock && (
               <button
                 onClick={onSwitchToMock}
-                className="px-3 py-1.5 bg-amber-600/30 hover:bg-amber-600/40 text-amber-200 border border-amber-500/40 text-xs font-semibold rounded-lg transition-colors flex items-center gap-1.5"
+                className="px-3.5 py-1.5 bg-amber-600/30 hover:bg-amber-600/40 text-amber-200 border border-amber-500/40 text-xs font-semibold rounded-xl transition-colors flex items-center gap-1.5"
               >
                 <span>⚡</span> Switch to Offline Mock
               </button>
@@ -110,7 +110,7 @@ export const ErrorGuidance: React.FC<ErrorGuidanceProps> = ({
             {onOpenHelp && (
               <button
                 onClick={onOpenHelp}
-                className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg transition-colors flex items-center gap-1.5"
+                className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition-colors flex items-center gap-1.5 border border-slate-700"
               >
                 <span>📖</span> Troubleshooting Guide
               </button>

@@ -132,14 +132,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
       <div className="p-5 border-b border-white/[0.08] flex items-center justify-between bg-slate-950/80 backdrop-blur-md">
         <div className="flex items-center gap-3">
           {/* Hexagonal Radar Icon */}
-          <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500/20 to-indigo-500/20 border border-teal-500/40 flex items-center justify-center shadow-lg shadow-teal-950/40">
-            <span className="w-2 h-2 rounded-full bg-teal-400 absolute animate-ping" />
-            <span className="w-2.5 h-2.5 rounded-full bg-teal-400" />
+          <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600/30 to-indigo-600/30 border border-blue-500/40 flex items-center justify-center shadow-lg shadow-blue-950/40">
+            <span className="w-2 h-2 rounded-full bg-blue-400 absolute animate-ping" />
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-400" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
               <h1 className="text-sm font-extrabold tracking-tight text-white font-sans">
-                SmartCity<span className="text-teal-400">AI</span>
+                SmartCity<span className="text-blue-400 font-black">AI</span>
               </h1>
             </div>
             <p className="text-[10px] text-slate-400 font-mono tracking-wider">
@@ -147,7 +147,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
             </p>
           </div>
         </div>
-        <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-teal-500/10 text-teal-400 border border-teal-500/30">
+        <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30">
           PRO
         </span>
       </div>
@@ -167,7 +167,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
                   onClick={() => onNavigate(item.id)}
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all group relative ${
                     isActive
-                      ? 'bg-teal-500/10 text-teal-300 border border-teal-500/30 shadow-sm shadow-teal-950/40 font-semibold'
+                      ? 'bg-blue-600/15 text-blue-200 border border-blue-500/30 shadow-sm shadow-blue-950/40 font-semibold'
                       : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60 border border-transparent'
                   }`}
                 >
@@ -175,7 +175,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
                     <span
                       className={`transition-colors ${
                         isActive
-                          ? 'text-teal-400'
+                          ? 'text-blue-400'
                           : 'text-slate-400 group-hover:text-slate-200'
                       }`}
                     >
@@ -188,7 +188,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
                     <span
                       className={`text-[9px] font-mono px-1.5 py-0.2 rounded font-bold uppercase tracking-wider ${
                         isActive
-                          ? 'bg-teal-400 text-slate-950 font-extrabold'
+                          ? 'bg-blue-500 text-white font-extrabold'
                           : 'bg-slate-800 text-slate-400 border border-slate-700/60'
                       }`}
                     >
@@ -198,7 +198,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
 
                   {/* Active Left Indicator Notch */}
                   {isActive && (
-                    <span className="absolute left-0 top-2 bottom-2 w-1 bg-teal-400 rounded-r-full shadow-sm shadow-teal-400" />
+                    <span className="absolute left-0 top-2 bottom-2 w-1 bg-blue-500 rounded-r-full shadow-sm shadow-blue-500" />
                   )}
                 </button>
               );

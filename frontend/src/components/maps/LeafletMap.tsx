@@ -70,7 +70,7 @@ export const LeafletMap: React.FC<LeafletMapProps> = ({
           case 'MEDIUM':
             return '#facc15';
           default:
-            return '#2dd4bf';
+            return '#3b82f6';
         }
       };
 
@@ -148,15 +148,15 @@ export const LeafletMap: React.FC<LeafletMapProps> = ({
   }, [hotspots]);
 
   return (
-    <div className="relative w-full rounded-xl overflow-hidden border border-slate-800 shadow-inner">
+    <div className="relative w-full rounded-2xl overflow-hidden border border-slate-800 shadow-inner">
       <div ref={mapContainerRef} style={{ height, width: '100%' }} />
-      <div className="absolute top-3 right-3 z-[1000] bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-lg p-2.5 text-[11px] text-slate-300 space-y-1 shadow-lg pointer-events-auto">
-        <div className="font-semibold text-white mb-1.5 flex items-center justify-between gap-4">
+      <div className="absolute top-3 right-3 z-[1000] bg-slate-950/90 backdrop-blur-md border border-slate-800 rounded-xl p-3 text-[11px] text-slate-300 space-y-1.5 shadow-xl pointer-events-auto">
+        <div className="font-bold text-white mb-2 flex items-center justify-between gap-4">
           <span>Risk Layers</span>
-          <span className="text-[10px] text-teal-400 font-mono">H3 Res 8</span>
+          <span className="text-[10px] text-blue-400 font-mono">H3 Res 8</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-sm bg-rose-500 inline-block"></span>
+          <span className="w-3 h-3 rounded-sm bg-rose-500 inline-block shadow-sm"></span>
           <span>Critical Risk (EB &gt; 0.008)</span>
         </div>
         <div className="flex items-center gap-2">
@@ -168,7 +168,7 @@ export const LeafletMap: React.FC<LeafletMapProps> = ({
           <span>Medium Risk (EB &gt; 0.002)</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-sm bg-teal-400 inline-block"></span>
+          <span className="w-3 h-3 rounded-sm bg-blue-500 inline-block"></span>
           <span>Low Baseline</span>
         </div>
         <div className="flex items-center gap-2 pt-1 border-t border-slate-800">

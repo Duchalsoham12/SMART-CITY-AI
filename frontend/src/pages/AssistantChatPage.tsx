@@ -94,9 +94,9 @@ export const AssistantChatPage: React.FC = () => {
             key={i}
             onClick={() => handleSend(prompt)}
             disabled={loading}
-            className="glass-card hover:border-teal-500/50 text-slate-300 hover:text-white px-3.5 py-2 rounded-xl text-xs font-medium transition-all text-left disabled:opacity-50 flex items-center gap-2 border border-slate-800/80 hover:shadow-md hover:shadow-teal-500/10"
+            className="glass-card hover:border-blue-500/50 text-slate-300 hover:text-white px-3.5 py-2 rounded-xl text-xs font-medium transition-all text-left disabled:opacity-50 flex items-center gap-2 border border-slate-800/80 hover:shadow-md hover:shadow-blue-500/10"
           >
-            <Sparkles className="w-3 h-3 text-teal-400 shrink-0" />
+            <Sparkles className="w-3 h-3 text-blue-400 shrink-0" />
             &ldquo;{prompt}&rdquo;
           </button>
         ))}
@@ -115,7 +115,7 @@ export const AssistantChatPage: React.FC = () => {
                 {msg.sender === 'user' ? (
                   <>
                     <span className="text-[11px] font-medium text-slate-400">You (Analyst)</span>
-                    <div className="w-5 h-5 rounded-full bg-teal-500/20 text-teal-300 flex items-center justify-center text-[10px]">
+                    <div className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-300 flex items-center justify-center text-[10px]">
                       <User className="w-3 h-3" />
                     </div>
                   </>
@@ -132,7 +132,7 @@ export const AssistantChatPage: React.FC = () => {
               <div
                 className={`max-w-2xl rounded-2xl p-4 text-xs leading-relaxed shadow-sm ${
                   msg.sender === 'user'
-                    ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-teal-600/20'
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-blue-600/25'
                     : 'glass-card border border-slate-800/80 text-slate-200'
                 }`}
               >
@@ -176,8 +176,8 @@ export const AssistantChatPage: React.FC = () => {
           ))}
 
           {loading && (
-            <div className="flex items-center gap-2.5 text-xs text-teal-400 font-mono animate-pulse bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 w-fit">
-              <Terminal className="w-4 h-4 text-teal-400 animate-spin" />
+            <div className="flex items-center gap-2.5 text-xs text-blue-400 font-mono animate-pulse bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 w-fit">
+              <Terminal className="w-4 h-4 text-blue-400 animate-spin" />
               Executing deterministic SQL query plan and auditing analytical marts...
             </div>
           )}
@@ -191,12 +191,12 @@ export const AssistantChatPage: React.FC = () => {
             onChange={(e) => setInputQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend(inputQuery)}
             placeholder="Ask about traffic forecasts, AQI trends, anomalies, or accident risks..."
-            className="flex-1 bg-slate-900/80 border border-slate-800/80 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 transition-colors font-medium"
+            className="flex-1 bg-slate-900/80 border border-slate-800/80 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors font-medium"
           />
           <button
             onClick={() => handleSend(inputQuery)}
             disabled={loading || !inputQuery.trim()}
-            className="px-4 py-2.5 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-white text-xs font-semibold rounded-xl transition-all disabled:opacity-50 shadow-lg shadow-teal-500/20 flex items-center gap-1.5"
+            className="px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold rounded-xl transition-all disabled:opacity-50 shadow-lg shadow-blue-500/25 flex items-center gap-1.5"
           >
             <span>Ask</span>
             <Send className="w-3.5 h-3.5" />

@@ -126,7 +126,7 @@ export const SafetyAndRisk: React.FC = () => {
         <div className="space-y-4">
           <div className="glass-card rounded-2xl p-5 border border-slate-800/80">
             <div className="flex items-center gap-2 mb-2 pb-2 border-b border-slate-800/80">
-              <Sliders className="w-4 h-4 text-teal-400" />
+              <Sliders className="w-4 h-4 text-blue-400" />
               <h3 className="text-sm font-bold text-white tracking-tight">Intersection Risk Simulator</h3>
             </div>
             <p className="text-[11px] text-slate-400 mb-4">
@@ -139,7 +139,7 @@ export const SafetyAndRisk: React.FC = () => {
                 <select
                   value={simWeather}
                   onChange={(e) => setSimWeather(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800/80 rounded-xl p-2.5 text-slate-200 focus:outline-none focus:border-teal-500 transition-colors font-medium"
+                  className="w-full bg-slate-950/80 border border-slate-800/80 rounded-xl p-2.5 text-slate-200 focus:outline-none focus:border-blue-500 transition-colors font-medium"
                 >
                   <option value="CLEAR">Clear Nominal</option>
                   <option value="RAIN">Rain / Wet Pavement</option>
@@ -152,7 +152,7 @@ export const SafetyAndRisk: React.FC = () => {
                 <select
                   value={simLighting}
                   onChange={(e) => setSimLighting(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800/80 rounded-xl p-2.5 text-slate-200 focus:outline-none focus:border-teal-500 transition-colors font-medium"
+                  className="w-full bg-slate-950/80 border border-slate-800/80 rounded-xl p-2.5 text-slate-200 focus:outline-none focus:border-blue-500 transition-colors font-medium"
                 >
                   <option value="DAYLIGHT">Daylight</option>
                   <option value="DUSK">Dusk / Twilight</option>
@@ -163,7 +163,7 @@ export const SafetyAndRisk: React.FC = () => {
               <div>
                 <div className="flex justify-between text-slate-400 text-[11px] mb-1.5">
                   <span className="font-medium uppercase tracking-wider">Speed Ratio to Freeflow</span>
-                  <span className="font-mono text-teal-300 font-bold">{simSpeedRatio.toFixed(2)}</span>
+                  <span className="font-mono text-blue-300 font-bold">{simSpeedRatio.toFixed(2)}</span>
                 </div>
                 <input
                   type="range"
@@ -172,14 +172,14 @@ export const SafetyAndRisk: React.FC = () => {
                   step="0.05"
                   value={simSpeedRatio}
                   onChange={(e) => setSimSpeedRatio(parseFloat(e.target.value))}
-                  className="w-full accent-teal-400 cursor-pointer"
+                  className="w-full accent-blue-500 cursor-pointer"
                 />
               </div>
 
               <div>
                 <div className="flex justify-between text-slate-400 text-[11px] mb-1.5">
                   <span className="font-medium uppercase tracking-wider">Hour of Day</span>
-                  <span className="font-mono text-teal-300 font-bold">{simHour}:00</span>
+                  <span className="font-mono text-blue-300 font-bold">{simHour}:00</span>
                 </div>
                 <input
                   type="range"
@@ -188,7 +188,7 @@ export const SafetyAndRisk: React.FC = () => {
                   step="1"
                   value={simHour}
                   onChange={(e) => setSimHour(parseInt(e.target.value))}
-                  className="w-full accent-teal-400 cursor-pointer"
+                  className="w-full accent-blue-500 cursor-pointer"
                 />
               </div>
 
@@ -241,7 +241,7 @@ export const SafetyAndRisk: React.FC = () => {
                         </div>
                         <div className="w-full bg-slate-800/80 h-1.5 rounded-full overflow-hidden">
                           <div
-                            className={`h-full ${feat.attribution_value > 0 ? 'bg-gradient-to-r from-rose-500 to-amber-500' : 'bg-gradient-to-r from-emerald-500 to-teal-400'}`}
+                            className={`h-full ${feat.attribution_value > 0 ? 'bg-gradient-to-r from-rose-500 to-amber-500' : 'bg-gradient-to-r from-emerald-500 to-sky-400'}`}
                             style={{ width: `${Math.min(100, Math.abs(feat.attribution_value) * 250)}%` }}
                           />
                         </div>
@@ -296,7 +296,7 @@ export const SafetyAndRisk: React.FC = () => {
                     <tr key={acc.id} className="hover:bg-slate-800/40 transition-colors">
                       <td className="py-3 px-4 font-mono text-slate-400 font-semibold">{acc.crash_record_id.slice(0, 10)}...</td>
                       <td className="py-3 px-4 text-slate-300">{acc.crash_date ? new Date(acc.crash_date).toLocaleDateString() : 'N/A'}</td>
-                      <td className="py-3 px-4 font-mono text-teal-400">{acc.h3_index || '882685623ffffff'}</td>
+                      <td className="py-3 px-4 font-mono text-blue-400">{acc.h3_index || '882685623ffffff'}</td>
                       <td className="py-3 px-4 text-slate-400 font-mono text-[11px]">
                         {acc.weather_condition} &bull; {acc.lighting_condition}
                       </td>
