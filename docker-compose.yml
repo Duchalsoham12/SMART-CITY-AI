@@ -1,0 +1,179 @@
+# =============================================================================
+# SmartCityAI — Production Container Orchestration Specification
+# Enforces non-root execution, network isolation, health probes, and resource bounds
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # 1. Relational Analytical Storage (PostgreSQL 16)
+  # ---------------------------------------------------------------------------
+  db:
+    image: postgres:16-alpine
+    container_name: smartcity-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-smartcity_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-smartcity_dev_secret_password_2026}
+      POSTGRES_DB: ${POSTGRES_DB:-smartcityai}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # Bind to localhost only to prevent external exposure; backend accesses via internal bridge
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    networks:
+      - smartcity-internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: 1536M
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+
+  # ---------------------------------------------------------------------------
+  # 2. FastAPI REST Gateway & Online Model Inference Core
+  # ---------------------------------------------------------------------------
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: smartcity-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://smartcity_admin:smartcity_dev_secret_password_2026@db:5432/smartcityai}
+      API_KEY_ADMIN: ${API_KEY_ADMIN}
+      API_KEY_ANALYST: ${API_KEY_ANALYST}
+      API_KEY_VIEWER: ${API_KEY_VIEWER}
+      SECRET_KEY: ${SECRET_KEY}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://localhost:8080}
+      ENVIRONMENT: ${ENVIRONMENT:-production}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    volumes:
+      - audit_logs:/app/logs
+      - model_artifacts:/app/ml/artifacts
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    networks:
+      - smartcity-internal
+      - smartcity-public
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2048M
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+
+  # ---------------------------------------------------------------------------
+  # 3. Frontend React 18 Enterprise Dashboard (Unprivileged Nginx)
+  # ---------------------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: smartcity-frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "${FRONTEND_PORT:-3000}:8080"
+    networks:
+      - smartcity-public
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:8080/healthz"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+        reservations:
+          cpus: "0.1"
+          memory: 128M
+
+  # ---------------------------------------------------------------------------
+  # 4. Asynchronous ML Pipeline Daemon & Batch Retraining Worker
+  # ---------------------------------------------------------------------------
+  ml-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.ml_worker
+    container_name: smartcity-ml-worker
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://smartcity_admin:smartcity_dev_secret_password_2026@db:5432/smartcityai}
+      ML_WORKER_INTERVAL_SECONDS: ${ML_WORKER_INTERVAL_SECONDS:-3600}
+      DRIFT_PSI_ALERT_THRESHOLD: ${DRIFT_PSI_ALERT_THRESHOLD:-0.10}
+      DRIFT_PSI_CRITICAL_THRESHOLD: ${DRIFT_PSI_CRITICAL_THRESHOLD:-0.25}
+    volumes:
+      - model_artifacts:/app/ml/artifacts
+      - audit_logs:/app/logs
+    networks:
+      - smartcity-internal
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2048M
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+
+# =============================================================================
+# Persistent Storage Volumes
+# =============================================================================
+volumes:
+  postgres_data:
+    name: smartcity_postgres_data
+    driver: local
+  model_artifacts:
+    name: smartcity_model_artifacts
+    driver: local
+  audit_logs:
+    name: smartcity_audit_logs
+    driver: local
+
+# =============================================================================
+# Network Isolation Architecture
+# =============================================================================
+networks:
+  # Internal network: isolated from external internet, database and batch workers
+  smartcity-internal:
+    name: smartcity-internal-net
+    driver: bridge
+    internal: true
+
+  # Public network: connects reverse proxy, host, and API gateway
+  smartcity-public:
+    name: smartcity-public-net
+    driver: bridge

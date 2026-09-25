@@ -1,0 +1,168 @@
+{
+  "benchmark_timestamp_utc": "2026-09-25T19:12:14.141126+00:00",
+  "hardware_environment": {
+    "os": "Windows",
+    "logical_cpus": 16,
+    "python_version": "3.13.7",
+    "psutil_available": true
+  },
+  "database_benchmarks": {
+    "insert_throughput_rows_sec": 94560.0,
+    "indexed_lookup_p50_ms": 0.257,
+    "indexed_lookup_p95_ms": 2.127,
+    "count_star_avg_ms": 0.161,
+    "offset_0_avg_ms": 0.267,
+    "offset_1000_avg_ms": 0.247,
+    "offset_overhead_pct": -7.4
+  },
+  "ml_inference_benchmarks": {
+    "single_item_p50_ms": 3.343,
+    "single_item_p95_ms": 5.213,
+    "batch_scaling": {
+      "batch_1": {
+        "total_latency_ms": 3.594,
+        "per_item_latency_ms": 3.5938,
+        "throughput_items_per_sec": 278.3
+      },
+      "batch_10": {
+        "total_latency_ms": 3.725,
+        "per_item_latency_ms": 0.3725,
+        "throughput_items_per_sec": 2684.7
+      },
+      "batch_50": {
+        "total_latency_ms": 3.592,
+        "per_item_latency_ms": 0.0718,
+        "throughput_items_per_sec": 13920.0
+      },
+      "batch_100": {
+        "total_latency_ms": 3.889,
+        "per_item_latency_ms": 0.0389,
+        "throughput_items_per_sec": 25712.4
+      },
+      "batch_500": {
+        "total_latency_ms": 4.696,
+        "per_item_latency_ms": 0.0094,
+        "throughput_items_per_sec": 106465.4
+      }
+    },
+    "isolation_forest_p50_ms": 2.466
+  },
+  "api_endpoint_latencies": {
+    "GET /api/v1/health": {
+      "p50_ms": 4.6,
+      "p95_ms": 5.3,
+      "p99_ms": 398.58,
+      "avg_ms": 20.42
+    },
+    "GET /api/v1/traffic (page=1)": {
+      "p50_ms": 6.47,
+      "p95_ms": 6.95,
+      "p99_ms": 9.11,
+      "avg_ms": 6.37
+    },
+    "POST /api/v1/traffic/forecast (Single)": {
+      "p50_ms": 12.1,
+      "p95_ms": 15.21,
+      "p99_ms": 15.57,
+      "avg_ms": 12.65
+    },
+    "POST /api/v1/traffic/forecast/batch (20 corridors)": {
+      "p50_ms": 12.49,
+      "p95_ms": 14.44,
+      "p99_ms": 15.64,
+      "avg_ms": 12.74
+    },
+    "GET /api/v1/accidents (page=1)": {
+      "p50_ms": 5.1,
+      "p95_ms": 6.87,
+      "p99_ms": 9.85,
+      "avg_ms": 5.45
+    },
+    "GET /api/v1/environment (page=1)": {
+      "p50_ms": 5.92,
+      "p95_ms": 6.44,
+      "p99_ms": 6.78,
+      "avg_ms": 5.85
+    },
+    "GET /api/v1/geospatial/hexagons (Cold)": {
+      "p50_ms": 7.07,
+      "p95_ms": 8.07,
+      "p99_ms": 8.26,
+      "avg_ms": 6.98
+    },
+    "GET /api/v1/geospatial/hexagons (Cached)": {
+      "p50_ms": 4.79,
+      "p95_ms": 6.26,
+      "p99_ms": 8.52,
+      "avg_ms": 5.07
+    },
+    "GET /api/v1/geospatial/hotspots": {
+      "p50_ms": 3.55,
+      "p95_ms": 4.29,
+      "p99_ms": 1552.96,
+      "avg_ms": 65.47
+    },
+    "GET /api/v1/insights/city-summary (Cold)": {
+      "p50_ms": 3.71,
+      "p95_ms": 4.35,
+      "p99_ms": 4.37,
+      "avg_ms": 3.59
+    },
+    "GET /api/v1/insights/city-summary (Cached)": {
+      "p50_ms": 4.0,
+      "p95_ms": 5.17,
+      "p99_ms": 27.08,
+      "avg_ms": 5.01
+    },
+    "POST /api/v1/insights/ask (AI Assistant)": {
+      "p50_ms": 5.18,
+      "p95_ms": 6.12,
+      "p99_ms": 22.22,
+      "avg_ms": 5.59
+    }
+  },
+  "concurrency_throughput": {
+    "concurrency_1": {
+      "concurrency": 1,
+      "total_requests": 100,
+      "throughput_req_per_sec": 112.6,
+      "p50_latency_ms": 7.46,
+      "p95_latency_ms": 24.97,
+      "success_rate_pct": 100.0
+    },
+    "concurrency_5": {
+      "concurrency": 5,
+      "total_requests": 100,
+      "throughput_req_per_sec": 167.7,
+      "p50_latency_ms": 29.9,
+      "p95_latency_ms": 34.69,
+      "success_rate_pct": 100.0
+    },
+    "concurrency_10": {
+      "concurrency": 10,
+      "total_requests": 100,
+      "throughput_req_per_sec": 153.3,
+      "p50_latency_ms": 65.06,
+      "p95_latency_ms": 74.92,
+      "success_rate_pct": 100.0
+    },
+    "concurrency_25": {
+      "concurrency": 25,
+      "total_requests": 100,
+      "throughput_req_per_sec": 148.8,
+      "p50_latency_ms": 155.97,
+      "p95_latency_ms": 198.15,
+      "success_rate_pct": 100.0
+    }
+  },
+  "memory_and_large_datasets": {
+    "n_rows_processed": 100000,
+    "full_load_duration_ms": 10.4,
+    "dataframe_memory_mb": 2.67,
+    "chunked_duration_ms": 97.0,
+    "process_initial_rss_mb": 339.5,
+    "process_final_rss_mb": 343.6,
+    "process_rss_delta_mb": 4.1,
+    "tracemalloc_peak_heap_mb": 7.64
+  }
+}

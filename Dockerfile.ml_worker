@@ -1,0 +1,45 @@
+# =============================================================================
+# SmartCityAI — ML Pipeline & Batch Retraining Worker Dockerfile
+# Multi-stage, non-root minimal worker for periodic background processing
+# =============================================================================
+
+FROM python:3.11-slim-bookworm AS runner
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    libgomp1 \
+    procps \
+    && rm -rf /var/lib/apt/lists/*
+
+# Security: Create non-root system group and user
+RUN groupadd -g 10001 -r smartcity && \
+    useradd -u 10001 -r -g smartcity -s /usr/sbin/nologin -d /app appuser
+
+# Copy installed packages from backend builder or install directly
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy application source code
+COPY --chown=appuser:smartcity backend/ /app/backend/
+COPY --chown=appuser:smartcity ml/ /app/ml/
+COPY --chown=appuser:smartcity schemas/ /app/schemas/
+COPY --chown=appuser:smartcity features/ /app/features/
+COPY --chown=appuser:smartcity validation/ /app/validation/
+COPY --chown=appuser:smartcity pipelines/ /app/pipelines/
+COPY --chown=appuser:smartcity scripts/ /app/scripts/
+
+RUN mkdir -p /app/logs && chown -R appuser:smartcity /app/logs
+
+USER appuser:smartcity
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+# Healthcheck verifying daemon process responsiveness
+HEALTHCHECK --interval=60s --timeout=10s --start-period=30s --retries=3 \
+    CMD ps aux | grep -v grep | grep "ml_pipeline_worker.py" || exit 1
+
+CMD ["python", "-u", "scripts/ml_pipeline_worker.py"]

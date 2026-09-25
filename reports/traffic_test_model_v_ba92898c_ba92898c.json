@@ -1,0 +1,16 @@
+{
+  "model_name": "traffic_test_model",
+  "model_version": "v_ba92898c",
+  "run_id": "ba92898c2e6746179c911695099b4a74",
+  "dataset_version_id": "traffic_telemetry-v_27409a8ba5",
+  "metrics": {
+    "mae": 1.326,
+    "rmse": 1.588,
+    "interval_coverage": 0.875,
+    "latency_p95_ms": 0.08
+  },
+  "residual_stats": {},
+  "gates_passed": true,
+  "rejection_reasons": [],
+  "timestamp_utc": "2026-09-25T18:52:55.050931+00:00"
+}

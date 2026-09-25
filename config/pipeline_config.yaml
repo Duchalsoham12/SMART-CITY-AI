@@ -1,0 +1,62 @@
+pipeline:
+  name: "smartcityai_production_pipeline"
+  version: "1.0.0"
+  random_seed: 42
+  environment: "production"
+
+storage:
+  raw_dir: "data/raw"
+  staging_dir: "data/staging"
+  processed_dir: "data/processed"
+  quarantine_dir: "data/quarantine"
+
+timezones:
+  chicago: "America/Chicago"
+  pune: "Asia/Kolkata"
+  internal_target: "UTC"
+
+spatial_boundaries:
+  chicago:
+    name: "Cook County, IL"
+    lat_min: 41.644
+    lat_max: 42.023
+    lon_min: -87.940
+    lon_max: -87.524
+  pune:
+    name: "Pune Municipal Region"
+    lat_min: 18.420
+    lat_max: 18.640
+    lon_min: 73.740
+    lon_max: 73.980
+
+cleaning:
+  max_forward_fill_limit: 2
+  imputation_tracking_flag: "is_imputed"
+  deduplication_strategy: "retain_latest" # Retain latest CDC record, quarantine collisions
+
+outlier_detection:
+  speed_bounds_mph:
+    min_physical: 0.0
+    max_physical: 100.0
+  pm25_bounds_ugm3:
+    min_physical: 0.0
+    max_physical: 1500.0
+  z_score_threshold: 3.5
+  iqr_multiplier: 1.5
+
+feature_engineering:
+  temporal_resample_freq: "1h"
+  autoregressive_lags: [1, 2, 3, 24, 168]
+  rolling_windows_hours: [3, 6, 24]
+  rolling_closed_side: "left" # CRITICAL FOR LEAKAGE PREVENTION: observation at t is never in rolling window
+  cyclical_encoding_cols: ["hour_of_day", "day_of_week", "month"]
+
+data_splits:
+  temporal_split_column: "observation_time_utc"
+  train_cutoff: "2023-12-31 23:59:59"
+  val_cutoff: "2024-06-30 23:59:59"
+
+preflight_validation:
+  max_allowed_feature_null_ratio: 0.05
+  max_allowed_target_null_ratio: 0.00
+  min_required_records: 50

@@ -1,0 +1,21 @@
+{
+  "dataset_name": "traffic_telemetry",
+  "version_id": "traffic_telemetry-v_27409a8ba5",
+  "sha256_hash": "27409a8ba543fbf91448ad281d27476efa48e005a66139293569d40f4590b406",
+  "row_count": 200,
+  "columns": [
+    "segment_id",
+    "observation_time_utc",
+    "speed"
+  ],
+  "temporal_range": {
+    "min_time_utc": "2026-01-01T00:00:00+00:00",
+    "max_time_utc": "2026-01-09T07:00:00+00:00"
+  },
+  "schema_summary": {
+    "segment_id": "int64",
+    "observation_time_utc": "datetime64[ns, UTC]",
+    "speed": "float64"
+  },
+  "created_at_utc": "2026-09-25T19:13:35.207386+00:00"
+}

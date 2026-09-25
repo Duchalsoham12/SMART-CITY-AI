@@ -1,0 +1,58 @@
+# Environment & Secrets (CRITICAL SECURITY)
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.cert
+
+# Python & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Node & Frontend
+node_modules/
+frontend/dist/
+frontend/node_modules/
+.npm
+*.log
+
+# Databases & Local State
+*.db
+*.sqlite
+*.sqlite3
+postgres_data/
+
+# Logs & Audit Dumps
+logs/
+*.log
+audit_logs/
+mlruns/
+
