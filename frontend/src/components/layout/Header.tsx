@@ -7,6 +7,8 @@ interface HeaderProps {
   onToggleLiveApi: (live: boolean) => void;
   userRole: string;
   onRoleChange: (role: string) => void;
+  onOpenHelp?: () => void;
+  onOpenTour?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -15,6 +17,8 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleLiveApi,
   userRole,
   onRoleChange,
+  onOpenHelp,
+  onOpenTour,
 }) => {
   const pageTitles: Record<PageId, { title: string; subtitle: string }> = {
     overview: {
@@ -57,9 +61,13 @@ export const Header: React.FC<HeaderProps> = ({
       title: 'System Health & Telemetry Diagnostics',
       subtitle: 'Database connection pooling, model fleet readiness, and infrastructure uptime',
     },
+    docs: {
+      title: 'User Guide & Documentation Center',
+      subtitle: 'Platform manuals, prediction explanations, data engineering guides, and FAQs',
+    },
   };
 
-  const currentMeta = pageTitles[currentPage];
+  const currentMeta = pageTitles[currentPage] || pageTitles.overview;
 
   return (
     <header className="h-16 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-6 flex items-center justify-between sticky top-0 z-40">
@@ -68,7 +76,32 @@ export const Header: React.FC<HeaderProps> = ({
         <p className="text-[11px] text-slate-400">{currentMeta.subtitle}</p>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
+        {/* Quick Product Tour Button */}
+        {onOpenTour && (
+          <button
+            onClick={onOpenTour}
+            className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-teal-300 border border-slate-700 hover:border-teal-500/40 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5"
+            title="Start Interactive Platform Tour"
+          >
+            <span>🚀</span>
+            <span className="hidden sm:inline">Tour</span>
+          </button>
+        )}
+
+        {/* Global Help Center Button */}
+        {onOpenHelp && (
+          <button
+            onClick={onOpenHelp}
+            className="px-2.5 py-1.5 bg-teal-600/20 hover:bg-teal-600/30 text-teal-300 border border-teal-500/40 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 shadow-sm"
+            title="Open Help Center & Documentation (Shortcut: ?)"
+          >
+            <span className="font-bold">?</span>
+            <span className="hidden sm:inline">Help</span>
+            <span className="hidden md:inline text-[10px] text-teal-400/80 font-mono">(?)</span>
+          </button>
+        )}
+
         {/* Live vs Offline Data Toggle */}
         <div className="flex items-center bg-slate-950 border border-slate-800 rounded-lg p-1 text-xs">
           <button
@@ -96,7 +129,7 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* User Role Selector */}
         <div className="flex items-center gap-2 text-xs">
-          <span className="text-slate-500">Role:</span>
+          <span className="text-slate-500 hidden sm:inline">Role:</span>
           <select
             value={userRole}
             onChange={(e) => onRoleChange(e.target.value)}

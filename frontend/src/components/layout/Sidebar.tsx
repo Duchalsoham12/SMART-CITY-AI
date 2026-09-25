@@ -10,7 +10,8 @@ export type PageId =
   | 'anomalies'
   | 'assistant'
   | 'models'
-  | 'health';
+  | 'health'
+  | 'docs';
 
 interface SidebarProps {
   currentPage: PageId;
@@ -29,6 +30,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
     { id: 'assistant', label: 'AI Analytics Assistant', icon: '🤖' },
     { id: 'models', label: 'Model Performance', icon: '🎯' },
     { id: 'health', label: 'System Health', icon: '❤️' },
+    { id: 'docs', label: 'User Guide & Docs', icon: '📚' },
   ];
 
   return (
